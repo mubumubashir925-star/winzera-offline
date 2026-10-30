@@ -31,7 +31,7 @@ jobs:
         run: |
           set -euo pipefail
           umask 077
-          keytool -genkeypair -noprompt -keystore winzera-release.jks -storetype PKCS12 -alias winzera -keyalg RSA -keysize 3072 -validity 10000 -dname "CN=Winzera, OU=Mobile, O=Winzera, L=Kerala, C=IN" -storepass "$STORE_PASSWORD" -keypass "$KEY_PASSWORD"
+          keytool -genkeypair -noprompt -keystore winzera-release.jks -storetype JKS -alias winzera -keyalg RSA -keysize 3072 -validity 10000 -dname "CN=Winzera, OU=Mobile, O=Winzera, L=Kerala, C=IN" -storepass "$STORE_PASSWORD" -keypass "$KEY_PASSWORD"
           base64 -w 0 winzera-release.jks | gh secret set ANDROID_KEYSTORE_BASE64 --repo "$GITHUB_REPOSITORY"
           printf %s winzera | gh secret set ANDROID_KEY_ALIAS --repo "$GITHUB_REPOSITORY"
           printf %s "$BACKUP_PASSWORD" | openssl enc -aes-256-cbc -pbkdf2 -salt -iter 250000 -out winzera-signing-backup.jks.enc -in winzera-release.jks -pass stdin
