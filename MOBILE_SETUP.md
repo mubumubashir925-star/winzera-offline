@@ -1,12 +1,24 @@
-# Winzera Android & iOS
+# Winzera Android APK update system
 
-This branch preserves the original root web app. Capacitor packages it for mobile.
+The existing Check for Updates button in the native Android app checks the latest public GitHub Release. If a newer APK is available, the user is asked to back up data before downloading it. Android will require the user to approve APK installation.
 
-## Android (GitHub Actions)
-Open Actions > Android Debug APK > Run workflow on mobile-app. Download the debug APK artifact after a successful build. Debug APKs are for testing, not Play Store release.
+## Required one-time setup
 
-## Local setup
-Use Node.js 22 and npm. Run npm ci, npm run mobile:prepare, then npx cap add android or npx cap add ios, followed by npx cap sync. Android needs Android Studio and an SDK; iOS needs macOS, Xcode, and signing for distribution.
+Create a permanent Android signing keystore. Keep a secure backup of the keystore and passwords. Add these four GitHub Actions repository secrets (Settings > Secrets and variables > Actions):
 
-## Important
-This is an initial native wrapper. Test local storage, backup/import, PDF downloads, file sharing, QR, WebRTC, offline startup, and device back navigation on real devices before treating it as production-ready. Browser-installed PWA data is not automatically migrated into the native app. Export a backup from the existing PWA before switching.
+- ANDROID_KEYSTORE_BASE64: base64-encoded keystore file
+- ANDROID_KEYSTORE_PASSWORD: keystore password
+- ANDROID_KEY_ALIAS: signing key alias
+- ANDROID_KEY_PASSWORD: signing key password
+
+Never commit the keystore or credentials. All future releases must use the same signing key and app ID.
+
+## Publishing updates
+
+GitHub Actions > Publish signed Android update > Run workflow > enter a new version such as 1.0.2. After successful build the APK is attached to a public GitHub Release. The app can then detect it via Check for Updates.
+
+## Important migration
+
+Existing GitHub Actions debug APKs are signed with a different key. Before installing the first signed release, export a backup of Winzera data. Uninstall the debug APK, install the signed release, then import the backup. Subsequent releases signed with the same permanent key can update in place.
+
+iOS requires separate App Store or TestFlight distribution. The Android updater does not silently install APKs, and requires internet for checking and downloading updates.
