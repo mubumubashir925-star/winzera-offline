@@ -1,0 +1,50 @@
+{
+  "name": "Winzera",
+  "short_name": "Winzera",
+  "description": "Fest and Competition Management System for cultural events",
+  "id": "/",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#1a0a2e",
+  "background_color": "#0d0618",
+  "lang": "en",
+  "categories": ["education", "productivity", "utilities"],
+  "icons": [
+    { "src": "./icons/icon-72.png",  "sizes": "72x72",   "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-96.png",  "sizes": "96x96",   "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-128.png", "sizes": "128x128", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-144.png", "sizes": "144x144", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-152.png", "sizes": "152x152", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-384.png", "sizes": "384x384", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "screenshots": [
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Competition Management Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Participants",
+      "short_name": "Members",
+      "description": "Manage participants",
+      "url": "./index.html#participants",
+      "icons": [{ "src": "./icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Mark Entry",
+      "short_name": "Marks",
+      "description": "Enter judge marks",
+      "url": "./index.html#marks",
+      "icons": [{ "src": "./icons/icon-96.png", "sizes": "96x96" }]
+    }
+  ],
+  "prefer_related_applications": false
+}
