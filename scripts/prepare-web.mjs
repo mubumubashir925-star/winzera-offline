@@ -1,12 +1,1 @@
-import { mkdir, copyFile, cp, readFile, writeFile, rm } from 'node:fs/promises';
-import { join } from 'node:path';
-const out = 'www';
-await rm(out, { recursive: true, force: true });
-await mkdir(out, { recursive: true });
-for (const file of ['index.html', 'manifest.json']) await copyFile(file, join(out, file));
-await cp('icons', join(out, 'icons'), { recursive: true });
-await copyFile('scripts/native-updater.js', join(out, 'native-updater.js'));
-let html = await readFile(join(out, 'index.html'), 'utf8');
-html = html.replace(/<\/body>/i, '<script src="native-updater.js"></script></body>');
-await writeFile(join(out, 'index.html'), html);
-console.log('Prepared Winzera native assets and update checker');
+import{mkdir,copyFile,cp,readFile,writeFile,rm}from'node:fs/promises';await rm('www',{recursive:true,force:true});await mkdir('www',{recursive:true});for(const f of ['index.html','manifest.json'])await copyFile(f,'www/'+f);await cp('icons','www/icons',{recursive:true});const v=process.env.WINZERA_VERSION||JSON.parse(await readFile('package.json','utf8')).version;await writeFile('www/native-updater.js',(await readFile('scripts/native-updater.js','utf8')).replace('__VERSION__',v));let h=await readFile('www/index.html','utf8');await writeFile('www/index.html',h.replace(/<\/body>/i,'<script src="native-updater.js"></script></body>'));
