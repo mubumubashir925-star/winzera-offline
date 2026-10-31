@@ -25,3 +25,18 @@ for(const [name,needle] of safetyChecks){
   if(!combined.includes(needle))throw new Error('Winzera safety regression: '+name);
 }
 console.log('Validated '+safetyChecks.length+' mark-entry/result safety checks');
+
+const uiSafetyChecks=[
+  ['settings save race removed',"if (_modalSaveCallback) {"],
+  ['duplicate confirmation protected',"if(document.getElementById('_modalSaveBtn'))return;"],
+  ['modal safe-area layout',"wz-modal-safety"]
+];
+for(const [name,needle] of uiSafetyChecks){
+  const source=name==='modal safe-area layout'?html:combined;
+  if(!source.includes(needle))throw new Error('Winzera UI safety regression: '+name);
+}
+const nativeBack=await readFile('www/native-back-navigation.js','utf8');
+if(!nativeBack.includes("document.addEventListener('DOMContentLoaded',register)")||
+   !nativeBack.includes("document.addEventListener('resume',register)"))
+  throw new Error('Native back registration regression');
+console.log('Validated settings modal and Android back regression guards');
