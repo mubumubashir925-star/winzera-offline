@@ -46,6 +46,7 @@ jobs:
       - name: Configure native resources
         run: |
           python3 scripts/android-safe-area.py
+          python3 scripts/android-native-diagnostic.py
           python3 -m pip install --quiet pillow
           python3 scripts/android-icon.py
       - name: Configure signing
