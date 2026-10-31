@@ -56,6 +56,15 @@ replaceRequired(
   'autosave declaration invalidation'
 );
 
+
+ // Generic modal dirty guard: Save must not silently do nothing when a modal
+ // has no registered save callback. Keep the edited form open and explain why.
+replaceRequired(
+  "if (_modalSaveCallback) {\n      _modalSaveCallback();\n    }",
+  "if (_modalSaveCallback) {\n      _modalSaveCallback();\n    } else {\n      _modalDirty=true;\n      if(typeof toast==='function') toast('No save action is available here. Use the form Save button.','error');\n    }",
+  'unsaved modal save feedback'
+);
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
