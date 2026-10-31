@@ -49,7 +49,6 @@ jobs:
         run: |
           python3 scripts/android-safe-area.py
           python3 scripts/android-native-diagnostic.py
-          python3 scripts/android-back-exit.py
           python3 -m pip install --quiet pillow
           python3 scripts/android-icon.py
       - name: Configure signing
