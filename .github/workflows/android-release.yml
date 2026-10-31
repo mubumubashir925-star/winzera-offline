@@ -41,6 +41,8 @@ jobs:
       - run: npm run mobile:prepare
         env:
           WINZERA_VERSION: ${{ inputs.version }}
+      - name: Validate web JavaScript syntax
+        run: node scripts/validate-web.mjs
       - run: npx cap add android
       - run: npx cap sync android
       - name: Configure native resources
