@@ -73,7 +73,9 @@ jobs:
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-        run: |\n          chmod +x gradlew\n          ./gradlew assembleRelease --no-daemon --refresh-dependencies --stacktrace
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --refresh-dependencies --stacktrace
       - name: Publish APK
         env:
           GH_TOKEN: ${{ github.token }}
