@@ -65,6 +65,18 @@ replaceRequired(
   'unsaved modal save feedback'
 );
 
+
+ // Setup modal: prevent the dirty-listener timer from resetting the snapshot
+ // after the user has already edited a field.
+replaceRequired(
+  "    _snapModalInputs();\n    // If a photo was changed",
+  "    if(!_modalDirty && !_checkModalDirty()) _snapModalInputs();\n    // If a photo was changed",
+  'dirty snapshot race'
+);
+// Keep all unsaved-confirm buttons above native gesture areas and other overlays.
+h=h.replace(/<\/head>/i,
+  '<style id="wz-modal-safety">#modalOverlay:not(.hidden){z-index:99999!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:max(12px,env(safe-area-inset-top,12px)) 12px max(20px,env(safe-area-inset-bottom,20px))!important;box-sizing:border-box!important}#modalOverlay:not(.hidden) .modal{max-height:calc(100dvh - 48px)!important;max-width:min(100%,520px)!important;overflow-y:auto!important;margin:auto!important}#modalContent button{position:relative;z-index:2;min-height:46px;touch-action:manipulation;pointer-events:auto!important}#modalContent .modal-handle{pointer-events:none}</style></head>');
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
