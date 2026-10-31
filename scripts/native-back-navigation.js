@@ -13,7 +13,7 @@
         return true;
       }
       if(typeof currentPage!=='undefined'&&currentPage!=='dashboard'){
-        if(typeof window.navigate==='function')window.navigate('dashboard');
+        if(typeof window.navigate==='function')window.navigate('dashboard',{},false);
         return true;
       }
       return false;
