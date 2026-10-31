@@ -77,6 +77,22 @@ replaceRequired(
 h=h.replace(/<\/head>/i,
   '<style id="wz-modal-safety">#modalOverlay:not(.hidden){z-index:99999!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:max(12px,env(safe-area-inset-top,12px)) 12px max(20px,env(safe-area-inset-bottom,20px))!important;box-sizing:border-box!important}#modalOverlay:not(.hidden) .modal{max-height:calc(100dvh - 48px)!important;max-width:min(100%,520px)!important;overflow-y:auto!important;margin:auto!important}#modalContent button{position:relative;z-index:2;min-height:46px;touch-action:manipulation;pointer-events:auto!important}#modalContent .modal-handle{pointer-events:none}</style></head>');
 
+
+// When the user chooses Save from the generic unsaved-changes confirmation,
+// do not silently swallow a missing callback, and avoid racing the dirty-state
+// snapshot against the callback that redraws the settings modal.
+replaceRequired(
+  "    _attachDirtyListeners();   // This will take a fresh snapshot after save is complete\n    _modalDirty = false;\n    _modalDirtySnap = null;",
+  "    _modalDirty = false;\n    _modalDirtySnap = null;",
+  'settings save callback race'
+);
+// Prevent stacked confirmation dialogs when a user presses Back repeatedly.
+replaceRequired(
+  "function _showUnsavedConfirm(onDiscard){\n  var mc = document.getElementById('modalContent');",
+  "function _showUnsavedConfirm(onDiscard){\n  if(document.getElementById('_modalSaveBtn'))return;\n  var mc = document.getElementById('modalContent');",
+  'duplicate unsaved confirmation guard'
+);
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
