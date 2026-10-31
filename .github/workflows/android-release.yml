@@ -60,13 +60,20 @@ jobs:
           VERSION: ${{ inputs.version }}
           BUILD_NUMBER: ${{ github.run_number }}
         run: python3 scripts/configure-release.py
+      - name: Verify Gradle repositories and dependencies
+        working-directory: android
+        run: |
+          echo "Gradle repositories:"
+          grep -R -n -E 'google-services|mavenCentral\(\)|google\(\)|kotlin-stdlib-jdk8' --include='*.gradle' --include='*.gradle.kts' . || true
+          echo "Kotlin artifact repository HTTP status:"
+          curl -IL --max-time 20 'https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.20/kotlin-stdlib-jdk8-1.9.20.pom' || true
       - name: Build signed release
         working-directory: android
         env:
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-        run: chmod +x gradlew && ./gradlew assembleRelease --no-daemon
+        run: |\n          chmod +x gradlew\n          ./gradlew assembleRelease --no-daemon --refresh-dependencies --stacktrace
       - name: Publish APK
         env:
           GH_TOKEN: ${{ github.token }}
