@@ -12,3 +12,16 @@ for(const file of scripts){
   }
 }
 console.log('Validated '+scripts.length+' bundled script references');
+
+const combined=(await Promise.all(scripts.filter(f=>f.startsWith('winzera-inline-')).map(f=>readFile('www/'+f,'utf8')))).join('\n');
+const safetyChecks=[
+  ['all registered items visible in Mark Entry',"var allBaseItems=items.filter(hasParticipants);"],
+  ['live search includes registered items',".filter(hasP);"],
+  ['missing code warning',"Codes Missing — check Code Letters"],
+  ['old ranks cleared before recalculation',"m.rank=0; if(!(m.total>0)){m.point=0;"],
+  ['single mark edit invalidates declaration',"var _changedItems=DB.items();var _ci="]
+];
+for(const [name,needle] of safetyChecks){
+  if(!combined.includes(needle))throw new Error('Winzera safety regression: '+name);
+}
+console.log('Validated '+safetyChecks.length+' mark-entry/result safety checks');
