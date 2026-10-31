@@ -42,6 +42,12 @@ replaceRequired(
   "marks.forEach(function(m){if(m.itemId===itemId){m.rank=0; if(!(m.total>0)){m.point=0;m.grade='';m.pct=0;}}});\n  var itemMarks=marks.filter(function(m){return m.itemId===itemId&&m.total>0;});\n  itemMarks.sort",
   'stale winner rank cleanup'
 );
+
+replaceRequired(
+  "DB.saveMarks(marks);\n  assignRanks(itemId); // recompute Rank Points immediately, not just at Declare",
+  "DB.saveMarks(marks);\n  var _changedItems=DB.items();var _ci=_changedItems.findIndex(function(i){return i.id===itemId;});if(_ci>=0&&_changedItems[_ci].declared){_changedItems[_ci].declared=false;DB.saveItems(_changedItems);}\n  assignRanks(itemId); // recompute Rank Points immediately, not just at Declare",
+  'single mark declaration invalidation'
+);
 // Changing an individual mark must invalidate an already declared result,
 // just as Save All does. Prevent publication of an outdated winner list.
 replaceRequired(
