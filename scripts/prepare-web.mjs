@@ -168,6 +168,26 @@ h=h.replace(/<\/head>/i,
   '@media(prefers-reduced-motion:reduce){.menu-card,.search-box,.spinner,.loading-spinner,.skeleton,.loading-skeleton{animation:none!important;transition:none!important}}'+
   '</style></head>');
 
+
+/* Fix Mark Entry crash: live-search renderer has allCodes(), not
+   allCodesAssigned(). The earlier safety patch used the wrong scope. */
+replaceRequired(
+  "var codeBadge=!allCodesAssigned(item)?",
+  "var codeBadge=!allCodes(item)?",
+  'mark entry live search code badge scope'
+);
+// Keep modal action rows separated, including preview-generated buttons.
+h=h.replace(/<\/head>/i,
+  '<style id="wz-mobile-action-spacing-v5">'+
+  '#modalContent .btn-row,#modalContent .button-row,#modalContent .action-row,#modalContent .form-actions{display:flex;flex-wrap:wrap;gap:12px!important;align-items:stretch;min-width:0}'+
+  '#modalContent .btn-row>.btn,#modalContent .button-row>.btn,#modalContent .action-row>.btn,#modalContent .form-actions>.btn{flex:1 1 140px;min-width:0;margin:0!important}'+
+  '#modalContent .btn+.btn{margin-left:0!important}'+
+  '#modalOverlay>.modal{margin:auto!important;max-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 24px)!important}'+
+  '#modalOverlay:not(.hidden){align-items:center!important;justify-content:center!important}'+
+  '#modalContent button{touch-action:manipulation}'+
+  '@media(max-width:390px){#modalContent .btn-row,#modalContent .button-row,#modalContent .action-row,#modalContent .form-actions{gap:10px!important}}'+
+  '</style></head>');
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
