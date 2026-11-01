@@ -273,7 +273,7 @@ body{background:linear-gradient(180deg,#f6f4ff 0%,#f8f9fd 100%)!important}
 </style></head>`);
 
 await copyFile('scripts/professional-dashboard.js','www/professional-dashboard.js');
-h=h.replace(/<\\/head>/i,`<style id="wz-pro-dashboard-v2">
+h=h.replace(/<\/head>/i,`<style id="wz-pro-dashboard-v2">
 .wz-pro-home{padding:4px 0 28px;color:#241d39}
 .wz-pro-hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#32175e,#7547d2 75%,#9669e4);color:#fff;border-radius:25px;padding:26px 22px 28px;box-shadow:0 12px 28px rgba(75,36,144,.22);margin-bottom:26px}
 .wz-pro-hero h1{font-size:1.6rem;font-weight:850;letter-spacing:-.04em;margin:12px 0 6px;position:relative;z-index:1}
