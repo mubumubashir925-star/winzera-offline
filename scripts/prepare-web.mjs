@@ -350,7 +350,7 @@ function init(){new MutationObserver(scan).observe(document.body,{childList:true
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 `;
-h=h.replace(/<\/body>/i,'<script>'+previewTools+'</script></body>');
+await writeFile('www/design-preview-tools.js',previewTools);
 
 const extracted=[];
 let inlineIndex=0;
@@ -362,4 +362,4 @@ h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
   return '<script src="'+filename+'"></script>';
 });
 for(const item of extracted)await writeFile('www/'+item.filename,item.js);
-await writeFile('www/index.html',h.replace(/<\/head>/i,'<link rel="stylesheet" href="neo-dashboard.css"><link rel="stylesheet" href="public-stage.css"><link rel="stylesheet" href="design-studio.css"></head>').replace(/<\/body>/i,'<script src="professional-dashboard.js"></script><script src="public-podium-ties.js"></script><script src="native-status-bar-theme.js"></script><script src="modal-layout.js"></script><script src="native-camera.js"></script><script src="native-updater.js"></script></body>'));
+await writeFile('www/index.html',h.replace(/<\/head>/i,'<link rel="stylesheet" href="neo-dashboard.css"><link rel="stylesheet" href="public-stage.css"><link rel="stylesheet" href="design-studio.css"></head>').replace(/<\/body>/i,'<script src="professional-dashboard.js"></script><script src="public-podium-ties.js"></script><script src="design-preview-tools.js"></script><script src="native-status-bar-theme.js"></script><script src="modal-layout.js"></script><script src="native-camera.js"></script><script src="native-updater.js"></script></body>'));
