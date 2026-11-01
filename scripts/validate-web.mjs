@@ -53,3 +53,9 @@ for(const needle of professionalStyleChecks){
   if(!html.includes(needle))throw new Error('Professional modal UI missing: '+needle);
 }
 console.log('Validated professional modal styling and accessibility rules');
+
+const coreDesignChecks=['wz-core-design-v1','.menu-card','.bottom-nav','.search-box','.empty-state','.toast','wzShimmer','prefers-reduced-motion:reduce'];
+for(const needle of coreDesignChecks){
+  if(!html.includes(needle))throw new Error('Core design regression: '+needle);
+}
+console.log('Validated dashboard, navigation, search, empty, loading and toast styling');
