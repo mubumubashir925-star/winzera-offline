@@ -382,6 +382,11 @@ for(const [from,to] of readablePosterEdits){
 }
 h=h.slice(0,mockStart)+mock+h.slice(mockEnd);
 
+
+/* Preset action layout: prevent narrow flex child from stacking Apply vertically. */
+h=h.replace("'<div style=\"display:flex;gap:8px;margin-bottom:6px\">'","'<div class=\"wz-preset-apply-row\" style=\"display:flex;gap:8px;margin-bottom:6px;align-items:stretch;min-width:0\">'");
+h=h.replace("'<div style=\"flex:1\">'+_wzDropdown('posterActiveSelect'","'<div style=\"flex:1 1 0;min-width:0\">'+_wzDropdown('posterActiveSelect'");
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
