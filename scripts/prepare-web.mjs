@@ -272,6 +272,40 @@ body{background:linear-gradient(180deg,#f6f4ff 0%,#f8f9fd 100%)!important}
 @media(prefers-reduced-motion:reduce){.nav-item,.menu-card{transition:none!important}}
 </style></head>`);
 
+await copyFile('scripts/professional-dashboard.js','www/professional-dashboard.js');
+h=h.replace(/<\\/head>/i,`<style id="wz-pro-dashboard-v2">
+.wz-pro-home{padding:4px 0 28px;color:#241d39}
+.wz-pro-hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#32175e,#7547d2 75%,#9669e4);color:#fff;border-radius:25px;padding:26px 22px 28px;box-shadow:0 12px 28px rgba(75,36,144,.22);margin-bottom:26px}
+.wz-pro-hero h1{font-size:1.6rem;font-weight:850;letter-spacing:-.04em;margin:12px 0 6px;position:relative;z-index:1}
+.wz-pro-hero p{font-size:.88rem;opacity:.85;margin:0 0 20px;position:relative;z-index:1}
+.wz-pro-eyebrow{font-size:.65rem;letter-spacing:.16em;font-weight:800;opacity:.8;position:relative;z-index:1}
+.wz-pro-event-meta{position:relative;z-index:1;display:inline-block;padding:10px 13px;border:1px solid #ffffff42;background:#ffffff1b;border-radius:12px;font-size:.73rem}
+.wz-pro-hero-orb{position:absolute;width:190px;height:190px;right:-68px;top:-70px;border:32px solid #ffffff0d;border-radius:50%}
+.wz-pro-section-title{display:flex;align-items:center;justify-content:space-between;font-size:1rem;font-weight:850;margin:22px 2px 13px}
+.wz-pro-section-hint{font-size:.61rem;color:#948ca7;letter-spacing:.1em;font-weight:750}
+.wz-pro-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.wz-pro-stat{display:flex;flex-direction:column;gap:5px;padding:18px;border-radius:20px;min-height:130px;box-shadow:0 6px 17px #2914480d}
+.wz-pro-stat-icon{font-size:1.4rem}.wz-pro-stat strong{font-size:2rem;line-height:1.1;font-weight:850}.wz-pro-stat>span:last-child{font-size:.77rem;font-weight:750}
+.wz-pro-purple{background:#eee5ff;color:#5b30b4}.wz-pro-blue{background:#e2f1ff;color:#2174b8}.wz-pro-orange{background:#fff0dc;color:#b16a16}.wz-pro-pink{background:#ffe6f0;color:#bb4775}
+.wz-pro-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.wz-pro-action{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:6px;padding:17px;background:#fff;border:1px solid #eee9f5;border-radius:19px;color:#2c2341;min-height:126px;box-shadow:0 4px 16px #32175e0b;cursor:pointer}
+.wz-pro-action-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#f1eaff;font-size:1.3rem}
+.wz-pro-action strong{font-size:.84rem}.wz-pro-action small{font-size:.68rem;color:#8a8298}
+.wz-pro-action:active{transform:scale(.98)}
+.wz-pro-overview{padding:20px;background:#fff;border-radius:20px;border:1px solid #eee9f5;box-shadow:0 4px 16px #32175e0b}
+.wz-pro-overview-head,.wz-pro-overview-foot{display:flex;justify-content:space-between;gap:12px}.wz-pro-overview-head{font-weight:800;font-size:.86rem}.wz-pro-overview-head strong{color:#7140ce}
+.wz-pro-track{height:10px;background:#eee8f7;border-radius:20px;margin:17px 0 10px;overflow:hidden}.wz-pro-track div{height:100%;border-radius:20px;background:linear-gradient(90deg,#6840c9,#a16ef0)}
+.wz-pro-overview-foot{font-size:.7rem;color:#8b839b}
+.wz-pro-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.wz-pro-summary>div{display:flex;flex-direction:column;align-items:center;gap:8px;background:#fff;border:1px solid #eee9f5;border-radius:17px;padding:15px 5px}
+.wz-pro-summary span{color:#7c49ce;font-size:1.1rem}.wz-pro-summary strong{font-size:1.4rem}.wz-pro-summary small{font-size:.62rem;color:#8a8298;text-align:center}
+html[data-theme="dark"] .wz-pro-home{color:#f5f0ff}
+html[data-theme="dark"] .wz-pro-action,html[data-theme="dark"] .wz-pro-overview,html[data-theme="dark"] .wz-pro-summary>div{background:#261b3d;color:#f5f0ff;border-color:#45335e}
+html[data-theme="dark"] .wz-pro-action small,html[data-theme="dark"] .wz-pro-summary small{color:#b5a8c8}
+@media(min-width:680px){.wz-pro-stats{grid-template-columns:repeat(4,minmax(0,1fr))}.wz-pro-actions{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.wz-pro-action{transition:none}}
+</style></head>`);
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
@@ -282,4 +316,4 @@ h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
   return '<script src="'+filename+'"></script>';
 });
 for(const item of extracted)await writeFile('www/'+item.filename,item.js);
-await writeFile('www/index.html',h.replace(/<\/body>/i,'<script src="modal-layout.js"></script><script src="native-camera.js"></script><script src="native-updater.js"></script></body>'));
+await writeFile('www/index.html',h.replace(/<\/body>/i,'<script src="professional-dashboard.js"></script><script src="modal-layout.js"></script><script src="native-camera.js"></script><script src="native-updater.js"></script></body>'));
