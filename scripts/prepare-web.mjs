@@ -350,7 +350,7 @@ function init(){new MutationObserver(scan).observe(document.body,{childList:true
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 `;
-h=h.replace(/<\\/body>/i,'<script>'+previewTools+'</script></body>');
+h=h.replace(/<\/body>/i,'<script>'+previewTools+'</script></body>');
 
 const extracted=[];
 let inlineIndex=0;
