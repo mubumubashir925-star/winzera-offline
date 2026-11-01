@@ -14,3 +14,9 @@
 @media(prefers-reduced-motion:reduce){#pctab-poster button,#pctab-cert button{transition:none}}
 
 /* Studio controls reserved for future advanced editor */
+
+/* Crisp preview: retain native aspect ratio and avoid blurry CSS interpolation. */
+#posterMockupCanvas,#certPreviewCanvas{display:block;max-width:100%;height:auto!important;image-rendering:auto;transform:none!important;filter:none!important;backdrop-filter:none!important}
+#posterMockupCanvas{width:100%;object-fit:contain}
+#certPreviewCanvas{width:100%;object-fit:contain}
+@media(min-width:700px){#posterMockupCanvas,#certPreviewCanvas{max-width:760px;margin-inline:auto}}
