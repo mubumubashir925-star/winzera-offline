@@ -86,3 +86,28 @@ html[data-theme="dark"] .wz-neo-progress-info{color:#d2c6e4}
 .wz-neo-tools-section .wz-neo-panel-head{margin-bottom:10px}
 @media(max-width:365px){.wz-neo-banner{padding:11px}.wz-neo-stat{padding:8px 6px}.wz-neo-stat-icon{width:30px;height:30px}.wz-neo-stat strong{font-size:1.07rem}.wz-neo-action>span:last-child{font-size:.55rem}}
 @media(max-height:740px){.wz-neo-banner-body{min-height:52px}.wz-neo-statgrid{margin:7px 0}.wz-neo-panel{padding:10px;margin-bottom:7px}.wz-neo-action{min-height:60px;padding:5px 2px}}
+
+/* Theme isolation: app theme can be toggled independently from dashboard surface */
+html[data-theme="light"] .wz-neo,
+body[data-theme="light"] .wz-neo,
+[data-theme="light"] .wz-neo{color:#211a34}
+html[data-theme="light"] .wz-neo-panel,
+body[data-theme="light"] .wz-neo-panel,
+[data-theme="light"] .wz-neo-panel{background:#fff!important;color:#211a34!important;border-color:#eae6f4!important;box-shadow:0 4px 16px #28145610!important}
+html[data-theme="light"] .wz-neo-panel-head h2,
+[data-theme="light"] .wz-neo-panel-head h2{color:#211a34!important}
+html[data-theme="light"] .wz-neo-action,
+html[data-theme="light"] .wz-neo-overview button,
+html[data-theme="light"] .wz-neo-tools button,
+[data-theme="light"] .wz-neo-action,
+[data-theme="light"] .wz-neo-overview button,
+[data-theme="light"] .wz-neo-tools button{background:#fff!important;color:#211a34!important;border-color:#e9e4f4!important}
+html[data-theme="light"] .wz-neo-action-icon svg,
+[data-theme="light"] .wz-neo-overview svg,
+[data-theme="light"] .wz-neo-tools svg{color:#6935b7!important;stroke:#6935b7!important}
+html[data-theme="dark"] .wz-neo-stat strong,
+[data-theme="dark"] .wz-neo-stat span{color:#201932!important}
+html[data-theme="dark"] .wz-neo-action-icon svg{stroke:#6830b6}
+html[data-theme="dark"] .wz-neo-overview button>span svg,
+html[data-theme="dark"] .wz-neo-tools button>svg{stroke:#b795ff}
+html[data-theme="dark"] .wz-neo-extras[open]>summary{border-bottom-color:#4a3769}
