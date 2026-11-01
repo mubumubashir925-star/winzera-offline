@@ -352,6 +352,36 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 `;
 await writeFile('www/design-preview-tools.js',previewTools);
 
+
+/* Readable poster mockup: improve hierarchy without altering saved poster backgrounds. */
+const readablePosterEdits=[
+ ["var cy=18;","var cy=8;"],
+ ["var lr=16;","var lr=19;"],
+ ["cy+=lr*2+6;","cy+=lr*2+2;"],
+ ["Math.round(12*ts)","Math.round(19*ts)"],
+ ["ctx.fillText((DB.config().festName)||'Winzera',W/2,cy+10);","ctx.fillText((DB.config().festName)||'Winzera',W/2,cy+12,W*.9);"],
+ ["cy+=18;","cy+=25;"],
+ ["Math.round(7*ts)","Math.round(10*ts)"],
+ ["cy+=11;","cy+=15;"],
+ ["Math.round(8*ts)","Math.round(11*ts)"],
+ ["cy+=12;","cy+=15;"],
+ ["var rowY=cy, rowH=44;","var rowY=cy, rowH=48;"],
+ ["var pr=13*(L.photoScale||1), pcx=26","var pr=19*(L.photoScale||1), pcx=28"],
+ ["Math.round(13*ts)","Math.round(17*ts)"],
+ ["Math.round(9*ts)","Math.round(12*ts)"],
+ ["ctx.fillText('SALIM',tx,rowY+18);","ctx.fillText('SALIM',tx,rowY+20,W-tx-8);"],
+ ["ctx.fillText('RED',tx,rowY+32);","ctx.fillText('RED',tx,rowY+37,W-tx-8);"]
+];
+const mockStart=h.indexOf('function _posterMockupRender(){');
+const mockEnd=h.indexOf('var _DEFAULT_POSTER_LAYOUT',mockStart);
+if(mockStart<0||mockEnd<0)throw Error('Poster mockup source not found');
+let mock=h.slice(mockStart,mockEnd);
+for(const [from,to] of readablePosterEdits){
+ if(!mock.includes(from))throw Error('Missing poster mockup edit: '+from);
+ mock=mock.replaceAll(from,to);
+}
+h=h.slice(0,mockStart)+mock+h.slice(mockEnd);
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
