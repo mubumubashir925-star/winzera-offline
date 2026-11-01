@@ -112,3 +112,14 @@ if(!modalLayout.includes("result.style.bottom='100%'")||
    !modalLayout.includes("result.style.top='100%'"))
   throw new Error('Assign Items searchable dropdown positioning missing');
 console.log('Validated QR camera permission and dropdown placement patches');
+
+const dirtyGuardChecks=[
+  'function _modalInputChanged(){ _modalDirty=_checkModalDirty() || !!_participantPhotoChanged; }',
+  'if(!_modalDirtyIgnore&&(_checkModalDirty() || !!_participantPhotoChanged)){',
+  "var expectedHtml=document.getElementById('modalContent')?.firstElementChild;",
+  'window._wzLastPageError={page:page'
+];
+for(const needle of dirtyGuardChecks){
+  if(!combined.includes(needle))throw new Error('Dirty guard / page diagnostics missing: '+needle);
+}
+console.log('Validated actual-change dirty guard and render error diagnostics');
