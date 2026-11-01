@@ -27,6 +27,25 @@
     var observer=new MutationObserver(schedule);
     observer.observe(overlay,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
     schedule();
+    // Searchable select results must appear above the modal content rather
+    // than being clipped under its footer on short Android screens.
+    overlay.addEventListener('focusin',function(e){
+      var input=e.target;
+      if(!input||!input.id||!input.id.endsWith('_q'))return;
+      var result=document.getElementById(input.id.slice(0,-2)+'_res');
+      if(!result)return;
+      requestAnimationFrame(function(){
+        var box=overlay.querySelector('.modal');
+        if(!box)return;
+        var roomBelow=box.getBoundingClientRect().bottom-input.getBoundingClientRect().bottom;
+        var roomAbove=input.getBoundingClientRect().top-box.getBoundingClientRect().top;
+        if(roomBelow<190&&roomAbove>roomBelow){
+          result.style.top='auto';result.style.bottom='100%';result.style.marginTop='0';result.style.marginBottom='4px';
+        }else{
+          result.style.bottom='auto';result.style.top='100%';result.style.marginBottom='0';result.style.marginTop='4px';
+        }
+      });
+    });
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
