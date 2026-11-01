@@ -276,6 +276,8 @@ await copyFile('scripts/professional-dashboard.js','www/professional-dashboard.j
 await copyFile('scripts/native-status-bar-theme.js','www/native-status-bar-theme.js');
 await copyFile('scripts/neo-dashboard.css','www/neo-dashboard.css');
 await copyFile('scripts/public-stage.css','www/public-stage.css');
+await copyFile('scripts/design-studio.css','www/design-studio.css');
+await copyFile('scripts/public-podium-ties.js','www/public-podium-ties.js');
 h=h.replace(/<\/head>/i,`<style id="wz-pro-dashboard-v2">
 .wz-pro-home{padding:4px 0 28px;color:#241d39}
 .wz-pro-hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#32175e,#7547d2 75%,#9669e4);color:#fff;border-radius:25px;padding:26px 22px 28px;box-shadow:0 12px 28px rgba(75,36,144,.22);margin-bottom:26px}
@@ -319,4 +321,4 @@ h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
   return '<script src="'+filename+'"></script>';
 });
 for(const item of extracted)await writeFile('www/'+item.filename,item.js);
-await writeFile('www/index.html',h.replace(/<\/head>/i,'<link rel="stylesheet" href="neo-dashboard.css"><link rel="stylesheet" href="public-stage.css"></head>').replace(/<\/body>/i,'<script src="professional-dashboard.js"></script><script src="native-status-bar-theme.js"></script><script src="modal-layout.js"></script><script src="native-camera.js"></script><script src="native-updater.js"></script></body>'));
+await writeFile('www/index.html',h.replace(/<\/head>/i,'<link rel="stylesheet" href="neo-dashboard.css"><link rel="stylesheet" href="public-stage.css"><link rel="stylesheet" href="design-studio.css"></head>').replace(/<\/body>/i,'<script src="professional-dashboard.js"></script><script src="public-podium-ties.js"></script><script src="native-status-bar-theme.js"></script><script src="modal-layout.js"></script><script src="native-camera.js"></script><script src="native-updater.js"></script></body>'));
