@@ -246,6 +246,14 @@ replaceRequired(
   'display safe page render error details'
 );
 
+// Prevent Mark Entry from crashing when a renderer references a badge declared
+// in another scope. Preserve the badge wherever it is actually available.
+h=h.replace(/\+codeBadge(?=\s*\+)/g, "+(typeof codeBadge !== 'undefined' ? codeBadge : '')");
+// Both Mark Entry renderers use different code-check helpers. Resolve the
+// available helper locally instead of depending on a function outside scope.
+h=h.replace(/var codeBadge=!allCodes\(item\)\?/g,
+  "var codeBadge=!(typeof allCodes==='function'?allCodes(item):(typeof allCodesAssigned==='function'?allCodesAssigned(item):true))?");
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
