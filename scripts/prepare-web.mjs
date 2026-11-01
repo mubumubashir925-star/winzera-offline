@@ -315,6 +315,13 @@ html[data-theme="dark"] .wz-pro-action small,html[data-theme="dark"] .wz-pro-sum
 /* Sharpen design editor preview canvases without changing export canvas dimensions. */
 h=h.replace('id="posterMockupCanvas"','id="posterMockupCanvas" data-sharp-preview="poster"');
 h=h.replace('id="certPreviewCanvas"','id="certPreviewCanvas" data-sharp-preview="cert"');
+
+// High-resolution poster canvas while retaining original logical drawing coordinates.
+h=h.replace('id="posterPreviewCanvas" width="320" height="200"','id="posterPreviewCanvas" width="960" height="600"');
+h=h.replace('id="posterMockupCanvas" width="320" height="200"','id="posterMockupCanvas" width="960" height="600"');
+h=h.replace("var ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;\n  var e=window._posterEditor;", "var ctx=canvas.getContext('2d'), W=320, H=200; ctx.setTransform(canvas.width/320,0,0,canvas.height/200,0,0);\n  var e=window._posterEditor;");
+h=h.replace("var ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;\n  var e=window._posterEditor;\n  var L=e.layout", "var ctx=canvas.getContext('2d'), W=320, H=200; ctx.setTransform(canvas.width/320,0,0,canvas.height/200,0,0);\n  var e=window._posterEditor;\n  var L=e.layout");
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
