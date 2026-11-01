@@ -211,14 +211,14 @@ replaceRequired(
 );
 // Don't let an old listener timer snapshot a newer modal, or overwrite edits.
 replaceRequired(
-  "  setTimeout(function(){\\n    var mc=document.getElementById('modalContent'); if(!mc) return;",
-  "  var expectedHtml=document.getElementById('modalContent')?.firstElementChild;\\n  setTimeout(function(){\\n    var mc=document.getElementById('modalContent'); if(!mc||mc.firstElementChild!==expectedHtml) return;",
+  "  setTimeout(function(){\n    var mc=document.getElementById('modalContent'); if(!mc) return;",
+  "  var expectedHtml=document.getElementById('modalContent')?.firstElementChild;\n  setTimeout(function(){\n    var mc=document.getElementById('modalContent'); if(!mc||mc.firstElementChild!==expectedHtml) return;",
   'dirty listener timer modal identity'
 );
 // A successful form save should clear the old baseline before close.
 replaceRequired(
-  "function _closeModalClean(){\\n  _modalDirty=false; _modalDirtySnap=null; _modalDirtyIgnore=true;",
-  "function _closeModalClean(){\\n  _modalDirty=false; _modalDirtySnap=null; _participantPhotoChanged=false; _modalDirtyIgnore=true;",
+  "function _closeModalClean(){\n  _modalDirty=false; _modalDirtySnap=null; _modalDirtyIgnore=true;",
+  "function _closeModalClean(){\n  _modalDirty=false; _modalDirtySnap=null; _participantPhotoChanged=false; _modalDirtyIgnore=true;",
   'clean close resets photo dirty state'
 );
 
