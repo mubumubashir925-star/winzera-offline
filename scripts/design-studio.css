@@ -1,0 +1,14 @@
+/* Modern design-studio styling, presentation only: existing save/load remains intact */
+#pctab-poster,#pctab-cert{color:var(--text);min-width:0}
+#pctab-poster .form-group,#pctab-cert .form-group{min-width:0}
+#pctab-poster .form-label,#pctab-cert .form-label{font-size:.72rem;font-weight:800;letter-spacing:.015em;margin-bottom:6px}
+#pctab-poster input[type="range"],#pctab-cert input[type="range"]{accent-color:var(--accent);cursor:pointer;min-height:28px}
+#pctab-poster input[type="color"],#pctab-cert input[type="color"]{border-radius:12px!important;min-height:44px}
+#pctab-poster input,#pctab-poster select,#pctab-cert input,#pctab-cert select{max-width:100%}
+#pctab-poster button,#pctab-cert button{min-height:38px;transition:transform .12s ease,box-shadow .12s ease;touch-action:manipulation}
+#pctab-poster button:active,#pctab-cert button:active{transform:scale(.98)}
+#posterPreviewCanvas,#certPreviewCanvas{border-radius:17px!important;box-shadow:0 12px 28px #0002}
+#pctab-poster .btn,#pctab-cert .btn{border-radius:12px}
+#pctab-poster .form-row,#pctab-cert .form-row{gap:10px}
+@media(max-width:430px){#pctab-poster,#pctab-cert{font-size:.87rem}#pctab-poster .form-row,#pctab-cert .form-row{gap:8px}}
+@media(prefers-reduced-motion:reduce){#pctab-poster button,#pctab-cert button{transition:none}}
