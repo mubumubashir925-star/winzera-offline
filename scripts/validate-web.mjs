@@ -88,7 +88,7 @@ if(!html.includes('id="modalOverlay"')||!html.includes('id="modalContent"')||
    !html.includes('bottom-nav'))throw new Error('Navigation/modal shell missing');
 console.log('Validated '+interactionChecks.length+' critical flow contracts and 3 modal button bindings');
 
-const markLiveStart=combined.indexOf('function _filterMarkItemsLive(');
+const markLiveStart=combined.indexOf('function filterMarkList(');
 if(markLiveStart<0)throw new Error('Mark Entry live search missing');
 const markLiveEnd=combined.indexOf('function renderMarks(',markLiveStart);
 const markLive=combined.slice(markLiveStart,markLiveEnd>markLiveStart?markLiveEnd:markLiveStart+10000);
