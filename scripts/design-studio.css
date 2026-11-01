@@ -33,3 +33,11 @@
 .wz-preview-fullscreen{position:fixed!important;inset:0!important;z-index:2147483000!important;background:#141020!important;padding:max(16px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom))!important;overflow:auto!important;display:flex!important;flex-direction:column;justify-content:center}
 .wz-preview-fullscreen canvas{max-width:none!important}
 .wz-preview-fullscreen .wz-preview-toolbar{flex-shrink:0}
+
+/* Fix the preset picker / Apply action on narrow mobile screens. */
+#pctab-poster #posterActiveSelect{min-width:0!important;max-width:100%!important;width:100%!important}
+#pctab-poster #posterActiveSelect + button{white-space:nowrap!important;word-break:normal!important}
+#pctab-poster .btn.btn-primary.btn-sm{white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;min-width:88px!important;flex-shrink:0!important;padding-inline:15px!important;display:inline-flex!important;align-items:center;justify-content:center}
+#pctab-poster .btn.btn-primary.btn-sm::first-letter{white-space:nowrap}
+#pctab-poster .wz-dropdown,#pctab-poster .wz-dropdown-trigger{min-width:0;max-width:100%}
+@media(max-width:400px){#pctab-poster .btn.btn-primary.btn-sm{min-width:80px!important;padding-inline:10px!important}}
