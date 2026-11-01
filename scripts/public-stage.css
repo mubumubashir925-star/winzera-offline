@@ -45,3 +45,18 @@
 #publicViewScreen .pv-avatar-img{object-fit:cover;object-position:center 25%}
 @media(max-width:540px){#publicViewScreen .pv-podium{gap:9px}#publicViewScreen .pv-podium-1 .pv-avatar,#publicViewScreen .pv-podium-1 .pv-avatar-img,#publicViewScreen .pv-podium-1 .pv-avatar-initials{width:100px!important;height:100px!important}#publicViewScreen .pv-podium-2 .pv-avatar,#publicViewScreen .pv-podium-2 .pv-avatar-img,#publicViewScreen .pv-podium-2 .pv-avatar-initials,#publicViewScreen .pv-podium-3 .pv-avatar,#publicViewScreen .pv-podium-3 .pv-avatar-img,#publicViewScreen .pv-podium-3 .pv-avatar-initials{width:68px!important;height:68px!important}#publicViewScreen .pv-podium-1 .pv-podium-name{font-size:1.4rem!important}}
 @media(max-height:650px) and (min-width:700px){#publicViewScreen .pv-podium-1 .pv-avatar,#publicViewScreen .pv-podium-1 .pv-avatar-img,#publicViewScreen .pv-podium-1 .pv-avatar-initials{width:95px!important;height:95px!important}#publicViewScreen .pv-podium-2 .pv-avatar,#publicViewScreen .pv-podium-2 .pv-avatar-img,#publicViewScreen .pv-podium-2 .pv-avatar-initials,#publicViewScreen .pv-podium-3 .pv-avatar,#publicViewScreen .pv-podium-3 .pv-avatar-img,#publicViewScreen .pv-podium-3 .pv-avatar-initials{width:65px!important;height:65px!important}}
+
+/* Joint winners: never overlap two first/second/third place cards */
+#publicViewScreen .pv-podium{display:flex!important;flex-direction:column;align-items:center;gap:clamp(10px,2vh,22px);width:min(100%,1100px)}
+#publicViewScreen .pv-rank-group{width:100%;display:flex;flex-direction:column;align-items:center;gap:7px}
+#publicViewScreen .pv-rank-cards{width:100%;display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;gap:clamp(8px,1.5vw,18px)}
+#publicViewScreen .pv-rank-group-1 .pv-rank-cards{max-width:1000px}
+#publicViewScreen .pv-rank-group-2 .pv-rank-cards,#publicViewScreen .pv-rank-group-3 .pv-rank-cards{max-width:900px}
+#publicViewScreen .pv-rank-group .pv-podium-slot{flex:1 1 160px;max-width:380px;width:auto}
+#publicViewScreen .pv-rank-group-1 .pv-podium-slot{flex-basis:240px;max-width:480px}
+#publicViewScreen .pv-rank-group-1 .pv-rank-cards:has(> :only-child) .pv-podium-slot{max-width:530px}
+#publicViewScreen .pv-rank-group-2 .pv-podium-slot,#publicViewScreen .pv-rank-group-3 .pv-podium-slot{flex-basis:170px}
+#publicViewScreen .pv-tie-label{color:#f6d58e;letter-spacing:.14em;font-size:clamp(.64rem,1.4vw,.85rem);font-weight:900;text-shadow:0 2px 8px #0008}
+#publicViewScreen .pv-rank-tied .pv-podium-1 .pv-avatar,#publicViewScreen .pv-rank-tied .pv-podium-1 .pv-avatar-img,#publicViewScreen .pv-rank-tied .pv-podium-1 .pv-avatar-initials{width:clamp(78px,10vw,130px)!important;height:clamp(78px,10vw,130px)!important}
+#publicViewScreen .pv-rank-tied .pv-podium-1 .pv-podium-name{font-size:clamp(1.08rem,2.2vw,1.8rem)!important}
+@media(max-width:520px){#publicViewScreen .pv-rank-group .pv-podium-slot{flex-basis:calc(50% - 8px);min-width:0}#publicViewScreen .pv-rank-group-1 .pv-podium-slot{flex-basis:calc(50% - 8px)}#publicViewScreen .pv-rank-cards{gap:7px}#publicViewScreen .pv-rank-tied .pv-podium-1 .pv-avatar,#publicViewScreen .pv-rank-tied .pv-podium-1 .pv-avatar-img,#publicViewScreen .pv-rank-tied .pv-podium-1 .pv-avatar-initials{width:76px!important;height:76px!important}}
