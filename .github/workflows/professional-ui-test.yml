@@ -77,6 +77,14 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembleRelease --no-daemon --refresh-dependencies --stacktrace
+      - name: Publish update for in-app Check for Updates
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: 2.1.0
+        run: |
+          test -s android/app/build/outputs/apk/release/app-release.apk
+          cp android/app/build/outputs/apk/release/app-release.apk "winzera-v$VERSION.apk"
+          gh release create "v$VERSION" "winzera-v$VERSION.apk" --target professional-ui-v1 --title "Winzera v$VERSION (Professional UI Test)" --notes "Professional UI test update. Back up data before updating."
       - name: Upload test APK
         uses: actions/upload-artifact@v4
         with:
