@@ -92,7 +92,7 @@ const markLiveStart=combined.indexOf('function filterMarkList(');
 if(markLiveStart<0)throw new Error('Mark Entry live search missing');
 const markLiveEnd=combined.indexOf('function renderMarks(',markLiveStart);
 const markLive=combined.slice(markLiveStart,markLiveEnd>markLiveStart?markLiveEnd:markLiveStart+10000);
-if(!markLive.includes('var codeBadge=!allCodes(item)?')||
+if(!/var codeBadge=!(?:allCodes\(item\)|\(typeof allCodes==='function'\?allCodes\(item\):\(typeof allCodesAssigned==='function'\?allCodesAssigned\(item\):true\)\))\?/.test(markLive)||
    markLive.includes('var codeBadge=!allCodesAssigned(item)?'))
   throw new Error('Mark Entry runtime regression: code badge uses wrong function scope');
 const cameraSource=await readFile('www/native-camera.js','utf8');
