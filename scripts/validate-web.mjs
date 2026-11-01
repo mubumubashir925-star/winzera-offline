@@ -47,3 +47,9 @@ if(!html.includes('wz-responsive-modal-v2')||!html.includes('modal-layout.js')||
    !layoutScript.includes("top.classList.toggle('wz-duplicate-close',bottom)"))
   throw new Error('Responsive modal / duplicate close regression');
 console.log('Validated modal layout and user-approved duplicate close policy');
+
+const professionalStyleChecks=['wz-professional-ui-v4','prefers-reduced-motion:reduce','focus-visible','--wz-touch:44px'];
+for(const needle of professionalStyleChecks){
+  if(!html.includes(needle))throw new Error('Professional modal UI missing: '+needle);
+}
+console.log('Validated professional modal styling and accessibility rules');
