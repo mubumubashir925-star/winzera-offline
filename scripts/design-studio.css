@@ -12,3 +12,5 @@
 #pctab-poster .form-row,#pctab-cert .form-row{gap:10px}
 @media(max-width:430px){#pctab-poster,#pctab-cert{font-size:.87rem}#pctab-poster .form-row,#pctab-cert .form-row{gap:8px}}
 @media(prefers-reduced-motion:reduce){#pctab-poster button,#pctab-cert button{transition:none}}
+
+/* Studio controls reserved for future advanced editor */
