@@ -111,3 +111,8 @@ html[data-theme="dark"] .wz-neo-action-icon svg{stroke:#6830b6}
 html[data-theme="dark"] .wz-neo-overview button>span svg,
 html[data-theme="dark"] .wz-neo-tools button>svg{stroke:#b795ff}
 html[data-theme="dark"] .wz-neo-extras[open]>summary{border-bottom-color:#4a3769}
+
+.wz-neo-spark{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.wz-neo-settings-link{display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border:1px solid #ffffff65;background:#ffffff1c;color:#fff;border-radius:10px;font:inherit;font-size:.68rem;font-weight:800;letter-spacing:0;cursor:pointer}
+.wz-neo-settings-link svg{width:16px;height:16px}
+.wz-neo-settings-link:active{background:#ffffff35}
