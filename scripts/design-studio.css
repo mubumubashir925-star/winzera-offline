@@ -20,3 +20,16 @@
 #posterMockupCanvas{width:100%;object-fit:contain}
 #certPreviewCanvas{width:100%;object-fit:contain}
 @media(min-width:700px){#posterMockupCanvas,#certPreviewCanvas{max-width:760px;margin-inline:auto}}
+
+/* Preserve alignment of the two poster canvases after high-DPI rendering. */
+#posterMockupCanvas{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;pointer-events:none!important}
+#posterPreviewCanvas{width:100%!important;height:auto!important}
+#certPreviewCanvas{width:100%!important;height:auto!important}
+.wz-preview-toolbar{display:flex;align-items:center;justify-content:center;gap:7px;margin:8px 0 14px}
+.wz-preview-toolbar button{background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);min-width:40px;min-height:40px;padding:8px 11px;font-weight:800}
+.wz-preview-toolbar output{font-size:.75rem;font-weight:800;min-width:48px;text-align:center;color:var(--text)}
+.wz-preview-viewport{overflow:auto;max-height:55vh;overscroll-behavior:contain;border-radius:12px}
+.wz-preview-viewport canvas{transform-origin:top left!important}
+.wz-preview-fullscreen{position:fixed!important;inset:0!important;z-index:2147483000!important;background:#141020!important;padding:max(16px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom))!important;overflow:auto!important;display:flex!important;flex-direction:column;justify-content:center}
+.wz-preview-fullscreen canvas{max-width:none!important}
+.wz-preview-fullscreen .wz-preview-toolbar{flex-shrink:0}
