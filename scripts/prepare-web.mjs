@@ -194,7 +194,6 @@ h=h.replace(/<\/head>/i,
   '#ba-i-preview-wrap>div[style*="display:flex"],#ba-i-preview-wrap div[style*="display:flex;gap:8px"]{gap:12px!important;flex-wrap:wrap!important;align-items:stretch!important}'+
   '#ba-i-preview-wrap div[style*="display:flex;gap:8px"]>.btn{flex:1 1 140px!important;min-width:0!important;margin:0!important}'+
   '#modalContent .btn-primary,#modalContent .btn-secondary{box-sizing:border-box}'+
-  '#modalContent .btn-primary+.btn-secondary,#modalContent .btn-secondary+.btn-primary{margin-top:8px}'+
   '</style></head>');
 
 const extracted=[];
