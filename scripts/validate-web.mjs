@@ -59,3 +59,31 @@ for(const needle of coreDesignChecks){
   if(!html.includes(needle))throw new Error('Core design regression: '+needle);
 }
 console.log('Validated dashboard, navigation, search, empty, loading and toast styling');
+
+/* Critical interaction-flow contract checks.
+ * These are packaging-time guards, NOT a substitute for Android UI tests. */
+const interactionChecks=[
+  ['dashboard route',/function\s+navigate\s*\(/],
+  ['back navigation',/function\s+goBack\s*\(/],
+  ['modal open',/function\s+showModal\s*\(/],
+  ['modal close',/function\s+closeModal\s*\(/],
+  ['unsaved confirmation',/function\s+_showUnsavedConfirm\s*\(/],
+  ['modal save action',/_modalSaveBtn/],
+  ['modal cancel action',/_modalCancelBtn/],
+  ['modal discard action',/_modalDiscardBtn/],
+  ['settings save',/function\s+saveConfig\s*\(/],
+  ['mark entry',/function\s+renderMarks\s*\(/],
+  ['search input',/search-box/],
+  ['navigation stack',/pageStack\.push\s*\(/],
+];
+for(const [name,pattern] of interactionChecks){
+  if(!pattern.test(combined))throw new Error('Critical flow missing: '+name);
+}
+const modalActions=['_modalSaveBtn','_modalCancelBtn','_modalDiscardBtn'];
+for(const id of modalActions){
+  if(!combined.includes("getElementById('"+id+"').onclick"))
+    throw new Error('Missing unsaved modal action binding: '+id);
+}
+if(!html.includes('id="modalOverlay"')||!html.includes('id="modalContent"')||
+   !html.includes('bottom-nav'))throw new Error('Navigation/modal shell missing');
+console.log('Validated '+interactionChecks.length+' critical flow contracts and 3 modal button bindings');
