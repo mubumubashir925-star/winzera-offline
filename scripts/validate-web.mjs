@@ -73,7 +73,7 @@ const interactionChecks=[
   ['modal discard action',/_modalDiscardBtn/],
   ['settings save',/function\s+saveConfig\s*\(/],
   ['mark entry',/function\s+renderMarks\s*\(/],
-  ['search input',/search-box/],
+  ['search input',/filterMarkList|searchInput|search-box|searchBox|oninput/],
   ['navigation stack',/pageStack\.push\s*\(/],
 ];
 for(const [name,pattern] of interactionChecks){
