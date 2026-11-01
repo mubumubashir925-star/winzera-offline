@@ -116,6 +116,30 @@ h=h.replace(/<\/head>/i,
   '@media(max-height:650px){#modalOverlay:not(.hidden){padding-top:8px!important;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 8px)!important}#modalOverlay>.modal{max-height:100%!important}}'+
   '</style></head>');
 
+
+/* Winzera visual refinement: appearance only; retain every existing action. */
+h=h.replace(/<\/head>/i,
+  '<style id="wz-professional-ui-v4">'+
+  ':root{--wz-touch:44px}'+
+  '#modalOverlay{isolation:isolate}'+
+  '#modalOverlay>.modal{border:1px solid var(--border)!important;border-radius:22px!important;scrollbar-width:thin;scrollbar-color:var(--border) transparent;-webkit-overflow-scrolling:touch;scroll-padding-bottom:24px;contain:layout style}'+
+  '#modalContent>.modal-title{font-size:clamp(1.04rem,3.8vw,1.22rem)!important;line-height:1.4!important;letter-spacing:-.015em;margin-bottom:16px!important;padding-right:0}'+
+  '#modalContent>.modal-close-btn:not(.wz-duplicate-close)~.modal-title{padding-right:42px}'+
+  '#modalContent .form-group{min-width:0;max-width:100%}'+
+  '#modalContent .form-label{display:block;font-size:.77rem;line-height:1.45;letter-spacing:.035em;font-weight:700;margin-bottom:7px}'+
+  '#modalContent input:not([type=checkbox]):not([type=radio]):not([type=hidden]),#modalContent select,#modalContent textarea{box-sizing:border-box;max-width:100%;min-width:0;min-height:44px;border-radius:12px;transition:border-color .16s ease,box-shadow .16s ease}'+
+  '#modalContent textarea{min-height:110px;resize:vertical}'+
+  '#modalContent input:focus-visible,#modalContent select:focus-visible,#modalContent textarea:focus-visible,#modalContent button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}'+
+  '#modalContent .btn{max-width:100%;min-height:var(--wz-touch);border-radius:13px!important;font-weight:700;line-height:1.3;white-space:normal;overflow-wrap:anywhere;transition:filter .15s ease,transform .15s ease}'+
+  '#modalContent .btn:active{transform:scale(.99);filter:brightness(.96)}'+
+  '#modalContent .tabs{max-width:100%;min-width:0;flex-wrap:wrap;gap:6px}'+
+  '#modalContent .tab{min-height:40px;display:flex;align-items:center;justify-content:center;min-width:0}'+
+  '#modalContent .form-row{min-width:0;max-width:100%}'+
+  '#modalContent img,#modalContent canvas,#modalContent table{max-width:100%}'+
+  '@media(max-width:420px){#modalOverlay>.modal{padding:22px 16px 18px!important}#modalContent>.modal-title{font-size:1.08rem!important}}'+
+  '@media(prefers-reduced-motion:reduce){#modalOverlay>.modal,#modalContent .btn,#modalContent input,#modalContent select,#modalContent textarea{animation:none!important;transition:none!important}}'+
+  '</style></head>');
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
