@@ -188,6 +188,15 @@ h=h.replace(/<\/head>/i,
   '@media(max-width:390px){#modalContent .btn-row,#modalContent .button-row,#modalContent .action-row,#modalContent .form-actions{gap:10px!important}}'+
   '</style></head>');
 
+
+h=h.replace(/<\/head>/i,
+  '<style id="wz-bulk-preview-layout-v6">'+
+  '#ba-i-preview-wrap>div[style*="display:flex"],#ba-i-preview-wrap div[style*="display:flex;gap:8px"]{gap:12px!important;flex-wrap:wrap!important;align-items:stretch!important}'+
+  '#ba-i-preview-wrap div[style*="display:flex;gap:8px"]>.btn{flex:1 1 140px!important;min-width:0!important;margin:0!important}'+
+  '#modalContent .btn-primary,#modalContent .btn-secondary{box-sizing:border-box}'+
+  '#modalContent .btn-primary+.btn-secondary,#modalContent .btn-secondary+.btn-primary{margin-top:8px}'+
+  '</style></head>');
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
