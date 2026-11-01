@@ -40,3 +40,11 @@ html[data-theme="dark"] .wz-neo-panel-head h2{color:#f8f4ff}
 html[data-theme="dark"] .wz-neo-progress-info{color:#d2c6e4}
 @media(max-width:365px){.wz-neo-stat{gap:7px;padding:12px 8px}.wz-neo-stat-icon{width:36px;height:36px}.wz-neo-stat strong{font-size:1.3rem}.wz-neo-actiongrid{gap:5px}.wz-neo-action>span:last-child{font-size:.58rem}}
 @media(min-width:700px){.wz-neo-statgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.wz-neo{max-width:960px;margin:auto}}
+
+/* Unified vector icon sizes — no emoji font dependency, works fully offline */
+.wz-neo-stat-icon svg{width:25px;height:25px;stroke-width:2.1}
+.wz-neo-action-icon svg{width:25px;height:25px;stroke-width:2}
+.wz-neo-trophy svg{width:74px;height:74px;color:#ffd467;stroke-width:1.55;filter:drop-shadow(0 5px 8px #140b38)}
+.wz-neo-banner-footer svg,.wz-neo-progress-info svg{width:15px;height:15px;vertical-align:-3px;margin-right:3px}
+.wz-neo-overview button>span svg{width:21px;height:21px;color:#793bd0}
+.wz-neo-tools button>svg{width:28px;height:28px;color:#793bd0}
