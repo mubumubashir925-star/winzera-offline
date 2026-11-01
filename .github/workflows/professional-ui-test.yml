@@ -1,0 +1,86 @@
+name: Professional UI Test APK
+on:
+  push:
+    branches: [professional-ui-v1]
+    paths:
+      - '.github/workflows/professional-ui-test.yml'
+      - 'scripts/**'
+  workflow_dispatch:
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: professional-ui-v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+      - name: Verify signing secrets
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          VERSION: 2.1.0
+        run: |
+          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
+          for v in KEYSTORE_B64 KEY_ALIAS KEY_PASSWORD STORE_PASSWORD; do
+            test -n "${!v}" || { echo "::error::Missing signing secret $v"; exit 1; }
+          done
+      - run: npm install --no-audit --no-fund
+      - run: npm run mobile:prepare
+        env:
+          WINZERA_VERSION: 2.1.0
+      - name: Validate web JavaScript syntax
+        run: node scripts/validate-web.mjs
+      - run: npx cap add android
+      - run: npx cap sync android
+      - name: Configure native resources
+        run: |
+          python3 scripts/android-safe-area.py
+          python3 scripts/android-camera-permission.py
+          python3 scripts/android-native-diagnostic.py
+          python3 -m pip install --quiet pillow
+          python3 scripts/android-icon.py
+      - name: Configure signing
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          VERSION: 2.1.0
+          BUILD_NUMBER: ${{ github.run_number }}
+        run: python3 scripts/configure-release.py
+      - name: Verify Gradle repositories and dependencies
+        working-directory: android
+        run: |
+          echo "Gradle repositories:"
+          grep -R -n -E 'google-services|mavenCentral\(\)|google\(\)|kotlin-stdlib-jdk8' --include='*.gradle' --include='*.gradle.kts' . || true
+          echo "Kotlin artifact repository HTTP status:"
+          curl -IL --max-time 20 'https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.20/kotlin-stdlib-jdk8-1.9.20.pom' || true
+      - name: Build signed release
+        working-directory: android
+        env:
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --refresh-dependencies --stacktrace
+      - name: Upload test APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: winzera-professional-ui-test
+          path: android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 14
