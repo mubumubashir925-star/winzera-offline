@@ -322,6 +322,36 @@ h=h.replace('id="posterMockupCanvas" width="320" height="200"','id="posterMockup
 h=h.replace("var ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;\n  var e=window._posterEditor;", "var ctx=canvas.getContext('2d'), W=320, H=200; ctx.setTransform(canvas.width/320,0,0,canvas.height/200,0,0);\n  var e=window._posterEditor;");
 h=h.replace("var ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;\n  var e=window._posterEditor;\n  var L=e.layout", "var ctx=canvas.getContext('2d'), W=320, H=200; ctx.setTransform(canvas.width/320,0,0,canvas.height/200,0,0);\n  var e=window._posterEditor;\n  var L=e.layout");
 
+
+const previewTools=String.raw`
+(function(){
+function mount(id){
+ const canvas=document.getElementById(id);if(!canvas||canvas.dataset.zoomReady)return;
+ canvas.dataset.zoomReady='1';
+ const wrap=canvas.parentElement;
+ const toolbar=document.createElement('div');toolbar.className='wz-preview-toolbar';
+ let zoom=1,full=false;
+ const output=document.createElement('output');output.textContent='100%';
+ function apply(){const scale=zoom;wrap.style.zoom=String(scale);output.textContent=Math.round(scale*100)+'%';}
+ function button(label,fn){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=fn;toolbar.appendChild(b);}
+ button('−',()=>{zoom=Math.max(.5,zoom-.25);apply();});
+ toolbar.appendChild(output);
+ button('+',()=>{zoom=Math.min(3,zoom+.25);apply();});
+ button('Fit',()=>{zoom=1;apply();});
+ button('⛶',()=>{full=!full;wrap.classList.toggle('wz-preview-fullscreen',full);zoom=1;apply();});
+ wrap.insertAdjacentElement('afterend',toolbar);
+ let start=0,initial=1;
+ wrap.addEventListener('touchstart',e=>{if(e.touches.length===2){const a=e.touches[0],b=e.touches[1];start=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);initial=zoom;}},{passive:true});
+ wrap.addEventListener('touchmove',e=>{if(e.touches.length===2&&start){const a=e.touches[0],b=e.touches[1];zoom=Math.max(.5,Math.min(3,initial*Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)/start));apply();}},{passive:true});
+ wrap.addEventListener('touchend',e=>{if(e.touches.length<2)start=0;},{passive:true});
+}
+function scan(){mount('posterPreviewCanvas');mount('certPreviewCanvas');}
+function init(){new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});scan();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+`;
+h=h.replace(/<\\/body>/i,'<script>'+previewTools+'</script></body>');
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
