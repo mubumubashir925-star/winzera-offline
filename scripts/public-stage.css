@@ -1,0 +1,20 @@
+/* Public display premium stage: always cinematic, independent of admin light/dark theme */
+#publicViewScreen{isolation:isolate;background:radial-gradient(ellipse at 50% -10%,#44236b 0%,#130b2b 45%,#080716 100%)!important;color:#fff}
+#publicViewScreen:after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.16;background-image:repeating-linear-gradient(125deg,transparent 0 22px,rgba(255,255,255,.09) 23px,transparent 24px),radial-gradient(circle at 20% 10%,#fff 0 1px,transparent 2px);background-size:auto,34px 34px}
+#publicViewScreen .pv-poster{background:radial-gradient(ellipse at 50% 0%,rgba(122,62,182,.23),transparent 62%),linear-gradient(155deg,#1a1032,#0d0a1d)!important}
+#publicViewScreen .pv-poster-title{font-weight:950;letter-spacing:-.035em;text-shadow:0 5px 26px rgba(250,195,93,.22);background:linear-gradient(105deg,#fff5d9,#f3d18b,#fff,#e5b959);background-size:220% auto;-webkit-background-clip:text;background-clip:text}
+#publicViewScreen .pv-podium{gap:clamp(9px,2vw,30px);align-items:flex-end}
+#publicViewScreen .pv-podium-slot{min-width:0;flex:0 1 auto}
+#publicViewScreen .pv-podium-card{border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.025));box-shadow:inset 0 1px 0 #ffffff38,0 22px 55px #0008;backdrop-filter:blur(15px)}
+#publicViewScreen .pv-podium-1 .pv-podium-card{border:2px solid #f5ca61;background:radial-gradient(ellipse at 50% 0%,rgba(255,219,108,.3),transparent 80%),linear-gradient(150deg,rgba(107,70,19,.55),rgba(34,23,49,.75));box-shadow:0 0 0 5px #f5ca6114,0 20px 65px #e9b64a35,inset 0 1px 0 #fff6}
+#publicViewScreen .pv-podium-2 .pv-podium-card{border:1.5px solid #cbd9ed;background:linear-gradient(145deg,rgba(193,212,235,.2),rgba(39,48,72,.5))}
+#publicViewScreen .pv-podium-3 .pv-podium-card{border:1.5px solid #db9b6c;background:linear-gradient(145deg,rgba(207,124,74,.22),rgba(58,31,45,.55))}
+#publicViewScreen .pv-podium-name{color:#fff!important;text-shadow:0 2px 12px #0008;overflow-wrap:anywhere}
+#publicViewScreen .pv-podium-team{color:#e4d6f7!important}
+#publicViewScreen .pv-podium-marks{border-radius:99px;font-variant-numeric:tabular-nums}
+#publicViewScreen .pv-top-card{border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.035));box-shadow:inset 0 1px 0 #ffffff30,0 20px 45px #0007}
+#publicViewScreen .pv-top-name{color:#fff!important;text-shadow:0 2px 12px #0008}
+#publicViewScreen .pv-poster-headtext{max-width:min(90vw,920px)}
+#publicViewScreen .pv-poster-festname{font-weight:950;letter-spacing:-.025em}
+@media(max-width:680px){#publicViewScreen .pv-podium{gap:8px}#publicViewScreen .pv-podium-card{min-width:0!important;padding:12px 9px!important}#publicViewScreen .pv-podium-1 .pv-podium-card{padding:16px 10px!important}#publicViewScreen .pv-podium-name{font-size:clamp(.7rem,3vw,1.1rem)!important}#publicViewScreen .pv-podium-team{font-size:.65rem}}
+@media(prefers-reduced-motion:reduce){#publicViewScreen:before,#publicViewScreen .pv-poster-title,#publicViewScreen .pv-podium-card:before{animation:none!important}}
