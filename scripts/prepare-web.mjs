@@ -140,6 +140,34 @@ h=h.replace(/<\/head>/i,
   '@media(prefers-reduced-motion:reduce){#modalOverlay>.modal,#modalContent .btn,#modalContent input,#modalContent select,#modalContent textarea{animation:none!important;transition:none!important}}'+
   '</style></head>');
 
+
+/* Winzera Core Design v1 — visual-only modernization of existing controls. */
+h=h.replace(/<\/head>/i,
+  '<style id="wz-core-design-v1">'+
+  ':root{--wz-radius-card:17px;--wz-radius-control:12px;--wz-focus:var(--accent)}'+
+  '.menu-grid{gap:12px!important;min-width:0!important}'+
+  '.menu-card{min-width:0;border-radius:var(--wz-radius-card)!important;padding:18px 12px!important;box-shadow:0 3px 14px rgba(0,0,0,.08);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease!important}'+
+  '.menu-card .mc-title{font-weight:800;line-height:1.35;overflow-wrap:anywhere}'+
+  '.menu-card .mc-sub{line-height:1.45}'+
+  '.menu-card:active{transform:scale(.98)!important}'+
+  '.bottom-nav{box-sizing:border-box;min-width:0;padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -5px 22px rgba(0,0,0,.10)}'+
+  '.nav-item{min-width:0;min-height:56px!important;gap:3px;padding:8px 2px!important;border-radius:12px;justify-content:center}'+
+  '.nav-item.active{background:color-mix(in srgb,var(--accent) 12%,transparent);font-weight:800}'+
+  '.nav-item .nav-label{font-size:clamp(.55rem,2.3vw,.68rem)!important;line-height:1.2;text-align:center;overflow-wrap:anywhere}'+
+  '.search-box{box-sizing:border-box;min-width:0;max-width:100%;border-radius:var(--wz-radius-control)!important;min-height:46px;transition:border-color .15s ease,box-shadow .15s ease}'+
+  '.search-box:focus-within{border-color:var(--accent)!important;box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 18%,transparent)}'+
+  '.search-box input{min-width:0;width:100%;font-size:16px!important}'+
+  '.filter-chip,.filter-btn,.chip{border-radius:999px;min-height:36px;touch-action:manipulation}'+
+  '.empty-state,.empty-msg,.no-results{max-width:100%;box-sizing:border-box;text-align:center;padding:24px 16px;border:1px dashed var(--border);border-radius:16px;color:var(--text2);line-height:1.6}'+
+  '.toast{box-sizing:border-box;max-width:min(420px,calc(100vw - 32px))!important;width:max-content;overflow-wrap:anywhere;line-height:1.45;border-radius:14px!important;box-shadow:0 12px 32px rgba(0,0,0,.22)!important;z-index:100000!important}'+
+  '.spinner,.loading-spinner{animation-duration:.8s;will-change:transform}'+
+  '.skeleton,.loading-skeleton{border-radius:12px;background:linear-gradient(90deg,var(--card) 25%,var(--bg3) 50%,var(--card) 75%);background-size:200% 100%;animation:wzShimmer 1.5s ease-in-out infinite}'+
+  '@keyframes wzShimmer{from{background-position:200% 0}to{background-position:-200% 0}}'+
+  '.menu-card:focus-visible,.nav-item:focus-visible,.filter-chip:focus-visible,.filter-btn:focus-visible{outline:2px solid var(--wz-focus);outline-offset:2px}'+
+  '@media(max-width:380px){.menu-grid{gap:9px!important}.menu-card{padding:14px 8px!important}.nav-item .nav-label{font-size:.55rem!important}}'+
+  '@media(prefers-reduced-motion:reduce){.menu-card,.search-box,.spinner,.loading-spinner,.skeleton,.loading-skeleton{animation:none!important;transition:none!important}}'+
+  '</style></head>');
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
