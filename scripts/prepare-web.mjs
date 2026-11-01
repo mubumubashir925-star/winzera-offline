@@ -273,6 +273,7 @@ body{background:linear-gradient(180deg,#f6f4ff 0%,#f8f9fd 100%)!important}
 </style></head>`);
 
 await copyFile('scripts/professional-dashboard.js','www/professional-dashboard.js');
+await copyFile('scripts/native-status-bar-theme.js','www/native-status-bar-theme.js');
 await copyFile('scripts/neo-dashboard.css','www/neo-dashboard.css');
 await copyFile('scripts/public-stage.css','www/public-stage.css');
 h=h.replace(/<\/head>/i,`<style id="wz-pro-dashboard-v2">
@@ -318,4 +319,4 @@ h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
   return '<script src="'+filename+'"></script>';
 });
 for(const item of extracted)await writeFile('www/'+item.filename,item.js);
-await writeFile('www/index.html',h.replace(/<\/head>/i,'<link rel="stylesheet" href="neo-dashboard.css"><link rel="stylesheet" href="public-stage.css"></head>').replace(/<\/body>/i,'<script src="professional-dashboard.js"></script><script src="modal-layout.js"></script><script src="native-camera.js"></script><script src="native-updater.js"></script></body>'));
+await writeFile('www/index.html',h.replace(/<\/head>/i,'<link rel="stylesheet" href="neo-dashboard.css"><link rel="stylesheet" href="public-stage.css"></head>').replace(/<\/body>/i,'<script src="professional-dashboard.js"></script><script src="native-status-bar-theme.js"></script><script src="modal-layout.js"></script><script src="native-camera.js"></script><script src="native-updater.js"></script></body>'));
