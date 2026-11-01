@@ -1,0 +1,42 @@
+/* Winzera Neo — approved dashboard mockup translated to responsive UI */
+.wz-neo{color:#1b1732;padding:2px 0 30px;font-family:inherit}
+.wz-neo-banner{position:relative;overflow:hidden;border-radius:23px;background:radial-gradient(circle at 83% 18%,#8c36df 0,transparent 36%),linear-gradient(132deg,#170c37,#381067 62%,#7027ad);padding:22px 20px 17px;color:#fff;box-shadow:0 10px 22px #3b186b33}
+.wz-neo-banner:after{content:'';position:absolute;width:240px;height:100px;bottom:-72px;right:-50px;background:#ab60fa45;border-radius:50%;transform:rotate(-15deg)}
+.wz-neo-spark{font-size:.65rem;font-weight:850;letter-spacing:.14em;color:#e5bcff}
+.wz-neo-banner-body{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:115px}
+.wz-neo-banner h1{font-size:clamp(1.35rem,5vw,2rem);font-weight:900;letter-spacing:-.035em;margin:0 0 8px;line-height:1.12}
+.wz-neo-banner p{margin:0;color:#d8c8f4;font-size:.8rem}
+.wz-neo-trophy{font-size:4rem;filter:drop-shadow(0 7px 12px #0007)}
+.wz-neo-banner-footer{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;border-top:1px solid #ffffff38;padding-top:13px;font-size:.71rem;font-weight:700}
+.wz-neo-statgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:18px 0}
+.wz-neo-stat{display:flex;align-items:center;gap:12px;border-radius:19px;padding:17px 12px;min-width:0;box-shadow:0 4px 12px #180a390b}
+.wz-neo-stat.violet{background:#efe4ff}.wz-neo-stat.sky{background:#e2f3ff}.wz-neo-stat.peach{background:#fff0e4}.wz-neo-stat.mint{background:#e4faef}
+.wz-neo-stat-icon{display:grid;place-items:center;width:46px;height:46px;flex-shrink:0;border-radius:14px;background:linear-gradient(135deg,#b35bff,#7724e8);color:#fff;font-size:1.45rem}
+.wz-neo-stat.sky .wz-neo-stat-icon{background:linear-gradient(135deg,#51c3ff,#1487ee)}.wz-neo-stat.peach .wz-neo-stat-icon{background:linear-gradient(135deg,#ffb84d,#ff7900)}.wz-neo-stat.mint .wz-neo-stat-icon{background:linear-gradient(135deg,#79e47e,#13b953)}
+.wz-neo-stat strong{display:block;font-size:1.55rem;font-weight:900;line-height:1.15;color:#19142d}.wz-neo-stat span{display:block;font-size:.73rem;color:#403b53}
+.wz-neo-panel{background:#fff;border:1px solid #eae6f4;border-radius:20px;padding:18px 16px;margin-bottom:16px;box-shadow:0 4px 16px #28145610}
+.wz-neo-panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:16px}
+.wz-neo-panel-head h2{font-size:1.03rem;font-weight:850;margin:0;color:#1b1732}
+.wz-neo-panel-head>strong{font-size:1.25rem;color:#6723c0}
+.wz-neo-muted{font-size:.69rem;color:#7944bd;font-weight:700}
+.wz-neo-track{height:12px;background:#eceaf7;border-radius:99px;overflow:hidden}
+.wz-neo-track div{height:100%;background:linear-gradient(90deg,#a85dff,#7826e8);border-radius:99px}
+.wz-neo-progress-info{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:14px;font-size:.7rem;font-weight:750;color:#4a425c}
+.wz-neo-actiongrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.wz-neo-action{min-width:0;border:1px solid #e9e4f4;border-radius:15px;background:#fff;padding:11px 3px;display:flex;flex-direction:column;align-items:center;gap:8px;color:#201b34;font:inherit;box-shadow:0 3px 8px #1a10300b}
+.wz-neo-action-icon{display:grid;place-items:center;font-size:1.4rem;width:38px;height:38px;border-radius:12px;background:#f3eaff}
+.wz-neo-action-icon.participants,.wz-neo-action-icon.backup{background:#e4faed}.wz-neo-action-icon.items,.wz-neo-action-icon.results{background:#fff0e0}.wz-neo-action-icon.marks,.wz-neo-action-icon.points{background:#e4efff}
+.wz-neo-action>span:last-child{font-size:.64rem;font-weight:800;text-align:center;line-height:1.25}
+.wz-neo-action:active,.wz-neo-overview button:active,.wz-neo-tools button:active{transform:scale(.97)}
+.wz-neo-overview{display:flex;flex-direction:column;gap:7px}
+.wz-neo-overview button{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:1px solid #e8e3f4;border-radius:14px;background:#faf9fe;text-align:left;font:inherit;font-size:.81rem;font-weight:750;color:#29243b}
+.wz-neo-overview button>span{font-size:1.2rem}.wz-neo-overview button b{margin-left:auto;font-size:1.4rem;color:#5f35a3}
+.wz-neo-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.wz-neo-tools button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px 5px;border:1px solid #e8e3f4;border-radius:14px;background:#faf9fe;font:inherit;font-size:1.5rem;color:#352255}
+.wz-neo-tools button span{font-size:.65rem;font-weight:750;text-align:center}
+html[data-theme="dark"] .wz-neo{color:#f8f4ff}
+html[data-theme="dark"] .wz-neo-panel,html[data-theme="dark"] .wz-neo-action,html[data-theme="dark"] .wz-neo-overview button,html[data-theme="dark"] .wz-neo-tools button{background:#241a39;border-color:#4a3769;color:#f8f4ff}
+html[data-theme="dark"] .wz-neo-panel-head h2{color:#f8f4ff}
+html[data-theme="dark"] .wz-neo-progress-info{color:#d2c6e4}
+@media(max-width:365px){.wz-neo-stat{gap:7px;padding:12px 8px}.wz-neo-stat-icon{width:36px;height:36px}.wz-neo-stat strong{font-size:1.3rem}.wz-neo-actiongrid{gap:5px}.wz-neo-action>span:last-child{font-size:.58rem}}
+@media(min-width:700px){.wz-neo-statgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.wz-neo{max-width:960px;margin:auto}}
