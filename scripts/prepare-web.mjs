@@ -106,6 +106,16 @@ h=h.replace(/<\/head>/i,
   '@media(max-width:380px){#modalOverlay:not(.hidden){padding-left:8px!important;padding-right:8px!important}#modalOverlay>.modal{padding-left:12px!important;padding-right:12px!important}}'+
   '</style></head>');
 
+
+/* Consistent four-corner modal radius, including tall scrollable sheets. */
+h=h.replace(/<\/head>/i,
+  '<style id="wz-modal-rounded-v3">'+
+  '#modalOverlay>.modal{border-radius:22px!important;background-clip:padding-box!important;overflow-x:hidden!important;overflow-y:auto!important;box-shadow:0 16px 48px rgba(0,0,0,.32)!important}'+
+  '#modalOverlay:not(.hidden){align-items:center!important;justify-content:center!important}'+
+  '#modalContent .btn{border-radius:14px;min-height:46px}'+
+  '@media(max-height:650px){#modalOverlay:not(.hidden){padding-top:8px!important;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 8px)!important}#modalOverlay>.modal{max-height:100%!important}}'+
+  '</style></head>');
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
