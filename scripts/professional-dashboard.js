@@ -1,21 +1,24 @@
-/* Winzera professional dashboard v2: UI only; all data stays in the existing DB. */
+/* Winzera Neo dashboard: approved visual layout, existing offline DB and navigation. */
 (function(){
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const icons={teams:'👥',participants:'🪪',items:'📚',assign:'🗂️',marks:'📋',results:'🏆',points:'📊',backup:'☁️'};
 window.renderDashboard=function(){
- const cfg=DB.config(),teams=DB.teams(),participants=DB.participants(),items=DB.items(),marks=DB.marks();
- const declared=items.filter(i=>i.declared).length,pending=Math.max(0,items.length-declared);
- const links=[['⚙️','Setup','Event settings','setup'],['👥','Teams','Manage teams','teams'],['🎓','Participants','View & add','participants'],['🏆','Items','Competition items','items'],['✍️','Mark Entry','Enter scores','marks'],['📊','Results','View results','results'],['🗂️','Sections','Categories','sections'],['🖨️','Reports','Print & export','reports']];
- const stats=[['👥','Teams',teams.length,'purple'],['🎓','Participants',participants.length,'blue'],['🏆','Items',items.length,'orange'],['⏳','Pending',pending,'pink']];
- return `<section class="wz-pro-home">
- <div class="wz-pro-hero"><div class="wz-pro-eyebrow">✦ WINZERA · EVENT MANAGER</div><h1>${esc(cfg.festName||'Your Competition')}</h1><p>${esc(cfg.institution||'Manage your competition with confidence')}</p><div class="wz-pro-event-meta">📅 ${esc(typeof formatFestDate==='function'?(formatFestDate(cfg)||'Event dashboard'):'Event dashboard')}${cfg.venue?' · '+esc(cfg.venue):''}</div><div class="wz-pro-hero-orb"></div></div>
- <div class="wz-pro-section-title"><span>Event at a glance</span><span class="wz-pro-section-hint">LIVE OVERVIEW</span></div>
- <div class="wz-pro-stats">${stats.map(([ico,label,value,color])=>`<div class="wz-pro-stat wz-pro-${color}"><span class="wz-pro-stat-icon">${ico}</span><strong>${value}</strong><span>${label}</span></div>`).join('')}</div>
- <div class="wz-pro-section-title"><span>Quick Actions</span><span class="wz-pro-section-hint">EXPLORE ALL</span></div>
- <div class="wz-pro-actions">${links.map(([ico,label,sub,page])=>`<button type="button" class="wz-pro-action" onclick="navigate('${page}')"><span class="wz-pro-action-icon">${ico}</span><strong>${label}</strong><small>${sub}</small></button>`).join('')}</div>
- <div class="wz-pro-section-title"><span>Event Overview</span></div>
- <div class="wz-pro-overview"><div class="wz-pro-overview-head"><span>🏅 Competition progress</span><strong>${items.length?Math.round(declared/items.length*100):0}%</strong></div><div class="wz-pro-track"><div style="width:${items.length?Math.round(declared/items.length*100):0}%"></div></div><div class="wz-pro-overview-foot"><span>${declared} declared</span><span>${items.length} total items</span></div></div>
- <div class="wz-pro-section-title"><span>Today's Summary</span></div>
- <div class="wz-pro-summary"><div><span>✓</span><strong>${declared}</strong><small>Declared results</small></div><div><span>◷</span><strong>${pending}</strong><small>Items pending</small></div><div><span>★</span><strong>${marks.length}</strong><small>Mark records</small></div></div>
+ const cfg=DB.config(),teams=DB.teams(),people=DB.participants(),items=DB.items();
+ const done=items.filter(i=>i.declared).length,remaining=items.length-done,pct=items.length?Math.round(done/items.length*100):0;
+ const shortcuts=[['teams','Teams','teams'],['participants','Participants','participants'],['items','Items','items'],['assign','Assign Items','participants'],['marks','Mark Entry','marks'],['results','Results','results'],['points','Points','points'],['backup','Backup','reports']];
+ const stats=[['👥',teams.length,'Teams','violet'],['👤',people.length,'Participants','sky'],['☷',items.length,'Items','peach'],['🏅',done,'Completed','mint']];
+ return `<section class="wz-neo">
+ <div class="wz-neo-banner"><div class="wz-neo-spark">✦ EVENT DASHBOARD</div><div class="wz-neo-banner-body"><div><h1>${esc(cfg.festName||'Winzera Fest')}</h1><p>${esc(cfg.institution||'Competition Management')}</p></div><div class="wz-neo-trophy" aria-hidden="true">🏆</div></div><div class="wz-neo-banner-footer"><span>📅 ${esc(typeof formatFestDate==='function'?(formatFestDate(cfg)||'Event details'):'Event details')}</span><span>📍 ${esc(cfg.venue||'Event Venue')}</span></div></div>
+ <div class="wz-neo-statgrid">${stats.map(([icon,value,label,tone])=>`<div class="wz-neo-stat ${tone}"><div class="wz-neo-stat-icon">${icon}</div><div><strong>${value}</strong><span>${label}</span></div></div>`).join('')}</div>
+ <div class="wz-neo-panel"><div class="wz-neo-panel-head"><h2>Competition Progress</h2><strong>${pct}%</strong></div><div class="wz-neo-track"><div style="width:${pct}%"></div></div><div class="wz-neo-progress-info"><span>🟢 ${done} Done</span><span>▷ ${remaining} Pending</span><span>◷ ${items.length} Total</span></div></div>
+ <div class="wz-neo-panel wz-neo-quick"><div class="wz-neo-panel-head"><h2>Quick Actions</h2><span class="wz-neo-muted">Manage event</span></div><div class="wz-neo-actiongrid">${shortcuts.map(([id,label,page])=>`<button type="button" class="wz-neo-action" onclick="navigate('${page}')"><span class="wz-neo-action-icon ${id}">${icons[id]}</span><span>${label}</span></button>`).join('')}</div></div>
+ <div class="wz-neo-panel"><div class="wz-neo-panel-head"><h2>Event Overview</h2></div><div class="wz-neo-overview">
+ <button type="button" onclick="navigate('teamPoints')"><span>🏆</span> Team Points <b>›</b></button>
+ <button type="button" onclick="navigate('results')"><span>⭐</span> Individual Results <b>›</b></button>
+ <button type="button" onclick="navigate('points')"><span>👥</span> Group Results &amp; Points <b>›</b></button>
+ <button type="button" onclick="navigate('reports')"><span>🎖️</span> Reports &amp; Certificates <b>›</b></button>
+ </div></div>
+ <div class="wz-neo-panel"><div class="wz-neo-panel-head"><h2>Tools &amp; Maintenance</h2></div><div class="wz-neo-tools"><button type="button" onclick="navigate('reports')">💾<span>Backup &amp; Export</span></button><button type="button" onclick="navigate('setup')">⚙️<span>Settings</span></button><button type="button" onclick="if(typeof window._doCheckUpdate==='function')window._doCheckUpdate();else alert('Update checker is available in the Android app')">🔄<span>Check Updates</span></button></div></div>
  </section>`;
 };
 })();
