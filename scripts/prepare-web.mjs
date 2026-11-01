@@ -254,6 +254,24 @@ h=h.replace(/\+codeBadge(?=\s*\+)/g, "+(typeof codeBadge !== 'undefined' ? codeB
 h=h.replace(/var codeBadge=!allCodes\(item\)\?/g,
   "var codeBadge=!(typeof allCodes==='function'?allCodes(item):(typeof allCodesAssigned==='function'?allCodesAssigned(item):true))?");
 
+// Professional UI preview: presentation-only styles, leaving offline data and scoring intact.
+h=h.replace(/<\/head>/i, `<style id="wz-professional-ui-v1">
+:root{--wz-premium:#6d40d8;--wz-premium-dark:#37226c;--wz-soft:#f5f3fc}
+body{background:linear-gradient(180deg,#f6f4ff 0%,#f8f9fd 100%)!important}
+.header{background:linear-gradient(115deg,#432479,#7043cb)!important;color:#fff!important;box-shadow:0 5px 22px rgba(67,36,121,.16)!important}
+.header button,.header .icon-btn{border-radius:12px!important}
+.content{background:transparent!important}
+.bottom-nav{background:rgba(255,255,255,.98)!important;border-top:1px solid #e9e5f5!important;box-shadow:0 -5px 24px rgba(55,34,108,.08)!important}
+.nav-item{border-radius:14px!important;transition:background .18s ease,color .18s ease!important}
+.nav-item.active{background:#eee7ff!important;color:#6334bf!important}
+.menu-card{border:1px solid #eae5f5!important;border-radius:20px!important;box-shadow:0 5px 20px rgba(55,34,108,.07)!important;transition:transform .18s ease,box-shadow .18s ease!important}
+.menu-card:active{transform:scale(.98)!important}
+.card,.stat-card,.dashboard-card{border-radius:18px!important;box-shadow:0 4px 16px rgba(55,34,108,.055)!important}
+.btn-primary,.btn.btn-primary{background:linear-gradient(110deg,#7042d4,#8a56dc)!important;border-radius:13px!important}
+.modal{border-radius:22px!important}
+@media(prefers-reduced-motion:reduce){.nav-item,.menu-card{transition:none!important}}
+</style></head>`);
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
