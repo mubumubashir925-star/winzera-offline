@@ -31,7 +31,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          VERSION: 2.1.1
+          VERSION: 2.1.2
         run: |
           [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
           for v in KEYSTORE_B64 KEY_ALIAS KEY_PASSWORD STORE_PASSWORD; do
@@ -40,7 +40,7 @@ jobs:
       - run: npm install --no-audit --no-fund
       - run: npm run mobile:prepare
         env:
-          WINZERA_VERSION: 2.1.1
+          WINZERA_VERSION: 2.1.2
       - name: Validate web JavaScript syntax
         run: node scripts/validate-web.mjs
       - run: npx cap add android
@@ -58,7 +58,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          VERSION: 2.1.1
+          VERSION: 2.1.2
           BUILD_NUMBER: ${{ github.run_number }}
         run: python3 scripts/configure-release.py
       - name: Verify Gradle repositories and dependencies
@@ -83,11 +83,16 @@ jobs:
           APK=app/build/outputs/apk/release/app-release.apk
           test -s "$APK"
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK"
-          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK" | head -n 5
+          BADGING=$("$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK")
+          echo "$BADGING" | head -n 5
+          CODE=$(echo "$BADGING" | sed -n "s/.*versionCode='\\([0-9]*\\)'.*/\\1/p" | head -n 1)
+          test -n "$CODE"
+          if [ "$CODE" -le 10023 ]; then echo "::error::APK downgrade detected: $CODE <= 10023"; exit 1; fi
+          echo "Verified upgrade versionCode: $CODE"
       - name: Publish update for in-app Check for Updates
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: 2.1.1
+          VERSION: 2.1.2
         run: |
           test -s android/app/build/outputs/apk/release/app-release.apk
           cp android/app/build/outputs/apk/release/app-release.apk "winzera-v$VERSION.apk"
