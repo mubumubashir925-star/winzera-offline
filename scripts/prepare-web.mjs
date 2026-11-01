@@ -311,6 +311,10 @@ html[data-theme="dark"] .wz-pro-action small,html[data-theme="dark"] .wz-pro-sum
 @media(prefers-reduced-motion:reduce){.wz-pro-action{transition:none}}
 </style></head>`);
 
+
+/* Sharpen design editor preview canvases without changing export canvas dimensions. */
+h=h.replace('id="posterMockupCanvas"','id="posterMockupCanvas" data-sharp-preview="poster"');
+h=h.replace('id="certPreviewCanvas"','id="certPreviewCanvas" data-sharp-preview="cert"');
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
