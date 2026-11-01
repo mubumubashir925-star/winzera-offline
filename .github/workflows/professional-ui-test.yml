@@ -31,7 +31,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          VERSION: 2.1.8
+          VERSION: 2.1.9
         run: |
           [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
           for v in KEYSTORE_B64 KEY_ALIAS KEY_PASSWORD STORE_PASSWORD; do
@@ -40,7 +40,7 @@ jobs:
       - run: npm install --no-audit --no-fund
       - run: npm run mobile:prepare
         env:
-          WINZERA_VERSION: 2.1.8
+          WINZERA_VERSION: 2.1.9
       - name: Validate web JavaScript syntax
         run: node scripts/validate-web.mjs
       - run: npx cap add android
@@ -58,7 +58,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          VERSION: 2.1.8
+          VERSION: 2.1.9
           BUILD_NUMBER: ${{ github.run_number }}
         run: python3 scripts/configure-release.py
       - name: Verify Gradle repositories and dependencies
@@ -92,7 +92,7 @@ jobs:
       - name: Publish update for in-app Check for Updates
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: 2.1.8
+          VERSION: 2.1.9
         run: |
           test -s android/app/build/outputs/apk/release/app-release.apk
           cp android/app/build/outputs/apk/release/app-release.apk "winzera-v$VERSION.apk"
