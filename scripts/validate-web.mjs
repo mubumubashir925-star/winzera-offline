@@ -102,3 +102,13 @@ if(!html.includes('native-camera.js')||
   throw new Error('Native camera integration missing');
 if(!html.includes('wz-mobile-action-spacing-v5'))throw new Error('Modal button spacing missing');
 console.log('Validated Mark Entry scope, camera integration and modal action spacing');
+
+const nativeCamera=await readFile('www/native-camera.js','utf8');
+const modalLayout=await readFile('www/modal-layout.js','utf8');
+if(!nativeCamera.includes("camera.requestPermissions({permissions:['camera']})")||
+   !nativeCamera.includes('window._startQRCamera=function'))
+  throw new Error('QR native camera permission bridge missing');
+if(!modalLayout.includes("result.style.bottom='100%'")||
+   !modalLayout.includes("result.style.top='100%'"))
+  throw new Error('Assign Items searchable dropdown positioning missing');
+console.log('Validated QR camera permission and dropdown placement patches');
