@@ -222,6 +222,30 @@ replaceRequired(
   'clean close resets photo dirty state'
 );
 
+
+/* Make page-render failures actionable without exposing stored user records.
+   Display only the JavaScript exception name/message, never application data. */
+replaceRequired(
+  "      console.error('[Winzera] Failed to render page \"'+page+'\":', err);\n      content.innerHTML=_renderPageErrorFallback();",
+  "      console.error('[Winzera] Failed to render page \"'+page+'\":', err);\n      window._wzLastPageError={page:page,name:String(err?.name||'Error'),message:String(err?.message||'Unknown error')};\n      content.innerHTML=_renderPageErrorFallback();",
+  'capture page render exception for diagnosis'
+);
+replaceRequired(
+  "function _renderPageErrorFallback(){\n  return",
+  "function _renderPageErrorFallback(){\n  var info=window._wzLastPageError;\n  var detail=info?'<div style=\"font-size:.72rem;overflow-wrap:anywhere;margin:12px auto;max-width:380px;opacity:.8\"></div>':'';\n  return",
+  'render fallback diagnostic placeholder'
+);
+replaceRequired(
+  "    +'<div style=\"display:flex;gap:10px;justify-content:center;flex-wrap:wrap\">'",
+  "    +detail+'<div style=\"display:flex;gap:10px;justify-content:center;flex-wrap:wrap\">'",
+  'render fallback diagnostic placement'
+);
+replaceRequired(
+  "      content.innerHTML=_renderPageErrorFallback();",
+  "      content.innerHTML=_renderPageErrorFallback();\n      var detailEl=content.querySelector('div[style*=\"max-width:380px\"]');\n      if(detailEl&&window._wzLastPageError)detailEl.textContent=window._wzLastPageError.name+': '+window._wzLastPageError.message;",
+  'display safe page render error details'
+);
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
