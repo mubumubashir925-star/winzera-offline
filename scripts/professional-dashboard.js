@@ -4,6 +4,7 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const paths={
  teams:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
  participants:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M5.5 16a4 4 0 0 1 7 0M15 9h4M15 13h4"/>',
+ sections:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10M9 15h12"/>',
  items:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M9 7h6M9 11h6"/>',
  assign:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M8 15l2 2 5-5"/>',
  marks:'<rect x="5" y="3" width="14" height="19" rx="2"/><path d="M9 3.5h6M9 12l2 2 4-4M9 18h6"/>',
@@ -20,17 +21,17 @@ const paths={
  medal:'<circle cx="12" cy="15" r="5"/><path d="m8 11-3-8h5l2 7 2-7h5l-3 8"/>'
 };
 const ico=name=>'<svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+(paths[name]||paths.star)+'</svg>';
-const icons=Object.fromEntries(['teams','participants','items','assign','marks','results','points','backup'].map(k=>[k,ico(k)]));
+const icons=Object.fromEntries(['teams','sections','participants','items','assign','marks','results','points','backup'].map(k=>[k,ico(k)]));
 window.renderDashboard=function(){
  const cfg=DB.config(),teams=DB.teams(),people=DB.participants(),items=DB.items();
  const done=items.filter(i=>i.declared).length,remaining=items.length-done,pct=items.length?Math.round(done/items.length*100):0;
- const shortcuts=[['teams','Teams','teams'],['participants','Participants','participants'],['items','Items','items'],['assign','Assign Items','participants'],['marks','Mark Entry','marks'],['results','Results','results'],['points','Points','points'],['backup','Backup','reports']];
+ const shortcuts=[['teams','Teams','teams'],['sections','Sections','sections'],['participants','Participants','participants'],['assign','Assign Items','assignChooser'],['items','Items','items'],['marks','Mark Entry','marks'],['results','Results','results'],['points','Points','points']];
  const stats=[[ico('teams'),teams.length,'Teams','violet'],[ico('participants'),people.length,'Participants','sky'],[ico('items'),items.length,'Items','peach'],[ico('medal'),done,'Completed','mint']];
  return `<section class="wz-neo">
  <div class="wz-neo-banner"><div class="wz-neo-spark"><span>✦ EVENT DASHBOARD</span><button type="button" class="wz-neo-settings-link" onclick="navigate('setup')" aria-label="Open settings">${ico("settings")}<span>Settings</span></button></div><div class="wz-neo-banner-body"><div><h1>${esc(cfg.festName||'Winzera Fest')}</h1><p>${esc(cfg.institution||'Competition Management')}</p></div><div class="wz-neo-trophy" aria-hidden="true">${ico("results")}</div></div><div class="wz-neo-banner-footer"><span>${ico("calendar")} ${esc(typeof formatFestDate==='function'?(formatFestDate(cfg)||'Event details'):'Event details')}</span><span>${ico("pin")} ${esc(cfg.venue||'Event Venue')}</span></div></div>
  <div class="wz-neo-statgrid">${stats.map(([icon,value,label,tone])=>`<div class="wz-neo-stat ${tone}"><div class="wz-neo-stat-icon">${icon}</div><div><strong>${value}</strong><span>${label}</span></div></div>`).join('')}</div>
  <div class="wz-neo-panel"><div class="wz-neo-panel-head"><h2>Competition Progress</h2><strong>${pct}%</strong></div><div class="wz-neo-track"><div style="width:${pct}%"></div></div><div class="wz-neo-progress-info"><span>${ico("check")} ${done} Done</span><span>${ico("clock")} ${remaining} Pending</span><span>${ico("items")} ${items.length} Total</span></div></div>
- <div class="wz-neo-panel wz-neo-quick"><div class="wz-neo-panel-head"><h2>Quick Actions</h2><span class="wz-neo-muted">Manage event</span></div><div class="wz-neo-actiongrid">${shortcuts.map(([id,label,page])=>`<button type="button" class="wz-neo-action" onclick="navigate('${page}')"><span class="wz-neo-action-icon ${id}">${icons[id]}</span><span>${label}</span></button>`).join('')}</div></div>
+ <div class="wz-neo-panel wz-neo-quick"><div class="wz-neo-panel-head"><h2>Quick Actions</h2><span class="wz-neo-muted">Manage event</span></div><div class="wz-neo-actiongrid">${shortcuts.map(([id,label,page])=>`<button type="button" class="wz-neo-action" onclick="${page==='assignChooser'?'showAssignItemsChooser()':"navigate('"+page+"')"}"><span class="wz-neo-action-icon ${id}">${icons[id]}</span><span>${label}</span></button>`).join('')}</div></div>
  <details class="wz-neo-panel wz-neo-extras"><summary>Event Overview &amp; More <span>⌄</span></summary><div class="wz-neo-panel-head"><h2>Event Overview</h2></div><div class="wz-neo-overview">
  <button type="button" onclick="navigate('teamPoints')"><span>${ico("results")}</span> Team Points <b>›</b></button>
  <button type="button" onclick="navigate('results')"><span>${ico("star")}</span> Individual Results <b>›</b></button>
