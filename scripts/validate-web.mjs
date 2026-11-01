@@ -40,3 +40,10 @@ if(!nativeBack.includes("document.addEventListener('DOMContentLoaded',register)"
    !nativeBack.includes("document.addEventListener('resume',register)"))
   throw new Error('Native back registration regression');
 console.log('Validated settings modal and Android back regression guards');
+
+const layoutScript=await readFile('www/modal-layout.js','utf8');
+if(!html.includes('wz-responsive-modal-v2')||!html.includes('modal-layout.js')||
+   !layoutScript.includes("label==='close'")||
+   !layoutScript.includes("top.classList.toggle('wz-duplicate-close',bottom)"))
+  throw new Error('Responsive modal / duplicate close regression');
+console.log('Validated modal layout and user-approved duplicate close policy');
