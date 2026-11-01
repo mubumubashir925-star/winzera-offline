@@ -48,3 +48,41 @@ html[data-theme="dark"] .wz-neo-progress-info{color:#d2c6e4}
 .wz-neo-banner-footer svg,.wz-neo-progress-info svg{width:15px;height:15px;vertical-align:-3px;margin-right:3px}
 .wz-neo-overview button>span svg{width:21px;height:21px;color:#793bd0}
 .wz-neo-tools button>svg{width:28px;height:28px;color:#793bd0}
+
+/* Compact, above-the-fold dashboard: phone-first density without tiny tap targets */
+.wz-neo{padding-bottom:10px}
+.wz-neo-banner{padding:13px 16px 12px;border-radius:18px}
+.wz-neo-spark{font-size:.57rem}
+.wz-neo-banner-body{min-height:65px}
+.wz-neo-banner h1{font-size:1.3rem;margin-bottom:3px}
+.wz-neo-banner p{font-size:.7rem}
+.wz-neo-trophy svg{width:47px;height:47px}
+.wz-neo-banner-footer{padding-top:8px;gap:5px;font-size:.63rem}
+.wz-neo-statgrid{gap:7px;margin:10px 0}
+.wz-neo-stat{padding:10px 9px;gap:8px;border-radius:13px}
+.wz-neo-stat-icon{width:35px;height:35px;border-radius:10px}
+.wz-neo-stat-icon svg{width:20px;height:20px}
+.wz-neo-stat strong{font-size:1.2rem}
+.wz-neo-stat span{font-size:.64rem}
+.wz-neo-panel{padding:12px;margin-bottom:9px;border-radius:15px}
+.wz-neo-panel-head{margin-bottom:9px}
+.wz-neo-panel-head h2{font-size:.87rem}
+.wz-neo-panel-head>strong{font-size:1rem}
+.wz-neo-track{height:8px}
+.wz-neo-progress-info{margin-top:8px;font-size:.62rem}
+.wz-neo-actiongrid{gap:6px}
+.wz-neo-action{min-height:67px;padding:7px 2px;gap:4px;border-radius:11px}
+.wz-neo-action-icon{width:29px;height:29px;border-radius:8px}
+.wz-neo-action-icon svg{width:19px;height:19px}
+.wz-neo-action>span:last-child{font-size:.59rem}
+.wz-neo-extras{padding:0;overflow:hidden}
+.wz-neo-extras>summary{cursor:pointer;list-style:none;padding:13px 15px;font-size:.82rem;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+.wz-neo-extras>summary::-webkit-details-marker{display:none}
+.wz-neo-extras[open]>summary{border-bottom:1px solid #e9e3f4;margin-bottom:12px}
+.wz-neo-extras>summary span{font-size:1.15rem;color:#7a44d1}
+.wz-neo-extras[open]>summary span{transform:rotate(180deg)}
+.wz-neo-extras>.wz-neo-panel-head,.wz-neo-extras>.wz-neo-overview,.wz-neo-tools-section{margin-left:12px;margin-right:12px}
+.wz-neo-tools-section{padding-top:13px;padding-bottom:12px}
+.wz-neo-tools-section .wz-neo-panel-head{margin-bottom:10px}
+@media(max-width:365px){.wz-neo-banner{padding:11px}.wz-neo-stat{padding:8px 6px}.wz-neo-stat-icon{width:30px;height:30px}.wz-neo-stat strong{font-size:1.07rem}.wz-neo-action>span:last-child{font-size:.55rem}}
+@media(max-height:740px){.wz-neo-banner-body{min-height:52px}.wz-neo-statgrid{margin:7px 0}.wz-neo-panel{padding:10px;margin-bottom:7px}.wz-neo-action{min-height:60px;padding:5px 2px}}
