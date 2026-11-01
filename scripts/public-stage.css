@@ -18,3 +18,30 @@
 #publicViewScreen .pv-poster-festname{font-weight:950;letter-spacing:-.025em}
 @media(max-width:680px){#publicViewScreen .pv-podium{gap:8px}#publicViewScreen .pv-podium-card{min-width:0!important;padding:12px 9px!important}#publicViewScreen .pv-podium-1 .pv-podium-card{padding:16px 10px!important}#publicViewScreen .pv-podium-name{font-size:clamp(.7rem,3vw,1.1rem)!important}#publicViewScreen .pv-podium-team{font-size:.65rem}}
 @media(prefers-reduced-motion:reduce){#publicViewScreen:before,#publicViewScreen .pv-poster-title,#publicViewScreen .pv-podium-card:before{animation:none!important}}
+
+/* Champion Spotlight: first place above second/third, larger portrait and name */
+#publicViewScreen .pv-podium{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"champion champion" "runner bronze";align-items:stretch;justify-items:center;gap:clamp(10px,2.2vw,28px);width:min(100%,940px);margin:0 auto}
+#publicViewScreen .pv-podium-slot{width:100%;min-width:0;max-width:420px;align-items:stretch}
+#publicViewScreen .pv-podium-1{grid-area:champion;max-width:530px}
+#publicViewScreen .pv-podium-2{grid-area:runner}
+#publicViewScreen .pv-podium-3{grid-area:bronze}
+#publicViewScreen .pv-podium-card{min-width:0!important;width:100%;height:100%;padding:clamp(12px,2vw,24px)!important}
+#publicViewScreen .pv-podium-1 .pv-podium-card{padding:clamp(18px,2.8vw,32px)!important;border-width:2px}
+#publicViewScreen .pv-podium-1 .pv-avatar,
+#publicViewScreen .pv-podium-1 .pv-avatar-img,
+#publicViewScreen .pv-podium-1 .pv-avatar-initials{width:clamp(108px,14vw,172px)!important;height:clamp(108px,14vw,172px)!important}
+#publicViewScreen .pv-podium-2 .pv-avatar,
+#publicViewScreen .pv-podium-2 .pv-avatar-img,
+#publicViewScreen .pv-podium-2 .pv-avatar-initials,
+#publicViewScreen .pv-podium-3 .pv-avatar,
+#publicViewScreen .pv-podium-3 .pv-avatar-img,
+#publicViewScreen .pv-podium-3 .pv-avatar-initials{width:clamp(70px,9vw,112px)!important;height:clamp(70px,9vw,112px)!important}
+#publicViewScreen .pv-podium-1 .pv-podium-name{font-size:clamp(1.45rem,3.1vw,2.35rem)!important;line-height:1.15}
+#publicViewScreen .pv-podium-2 .pv-podium-name,
+#publicViewScreen .pv-podium-3 .pv-podium-name{font-size:clamp(.95rem,2vw,1.45rem)!important;line-height:1.2}
+#publicViewScreen .pv-podium-1 .pv-podium-medal{font-size:clamp(2.5rem,4vw,3.8rem)!important}
+#publicViewScreen .pv-podium-1 .pv-podium-team{font-size:clamp(.8rem,1.6vw,1.08rem)!important}
+#publicViewScreen .pv-podium-1 .pv-podium-marks{font-size:1.05rem!important}
+#publicViewScreen .pv-avatar-img{object-fit:cover;object-position:center 25%}
+@media(max-width:540px){#publicViewScreen .pv-podium{gap:9px}#publicViewScreen .pv-podium-1 .pv-avatar,#publicViewScreen .pv-podium-1 .pv-avatar-img,#publicViewScreen .pv-podium-1 .pv-avatar-initials{width:100px!important;height:100px!important}#publicViewScreen .pv-podium-2 .pv-avatar,#publicViewScreen .pv-podium-2 .pv-avatar-img,#publicViewScreen .pv-podium-2 .pv-avatar-initials,#publicViewScreen .pv-podium-3 .pv-avatar,#publicViewScreen .pv-podium-3 .pv-avatar-img,#publicViewScreen .pv-podium-3 .pv-avatar-initials{width:68px!important;height:68px!important}#publicViewScreen .pv-podium-1 .pv-podium-name{font-size:1.4rem!important}}
+@media(max-height:650px) and (min-width:700px){#publicViewScreen .pv-podium-1 .pv-avatar,#publicViewScreen .pv-podium-1 .pv-avatar-img,#publicViewScreen .pv-podium-1 .pv-avatar-initials{width:95px!important;height:95px!important}#publicViewScreen .pv-podium-2 .pv-avatar,#publicViewScreen .pv-podium-2 .pv-avatar-img,#publicViewScreen .pv-podium-2 .pv-avatar-initials,#publicViewScreen .pv-podium-3 .pv-avatar,#publicViewScreen .pv-podium-3 .pv-avatar-img,#publicViewScreen .pv-podium-3 .pv-avatar-initials{width:65px!important;height:65px!important}}
