@@ -87,3 +87,18 @@ for(const id of modalActions){
 if(!html.includes('id="modalOverlay"')||!html.includes('id="modalContent"')||
    !html.includes('bottom-nav'))throw new Error('Navigation/modal shell missing');
 console.log('Validated '+interactionChecks.length+' critical flow contracts and 3 modal button bindings');
+
+const markLiveStart=combined.indexOf('function _filterMarkItemsLive(');
+if(markLiveStart<0)throw new Error('Mark Entry live search missing');
+const markLiveEnd=combined.indexOf('function renderMarks(',markLiveStart);
+const markLive=combined.slice(markLiveStart,markLiveEnd>markLiveStart?markLiveEnd:markLiveStart+10000);
+if(!markLive.includes('var codeBadge=!allCodes(item)?')||
+   markLive.includes('var codeBadge=!allCodesAssigned(item)?'))
+  throw new Error('Mark Entry runtime regression: code badge uses wrong function scope');
+const cameraSource=await readFile('www/native-camera.js','utf8');
+if(!html.includes('native-camera.js')||
+   !cameraSource.includes("camera.getPhoto(")||
+   !cameraSource.includes("window._openPhotoCropper(photo.dataUrl)"))
+  throw new Error('Native camera integration missing');
+if(!html.includes('wz-mobile-action-spacing-v5'))throw new Error('Modal button spacing missing');
+console.log('Validated Mark Entry scope, camera integration and modal action spacing');
