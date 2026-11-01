@@ -196,6 +196,32 @@ h=h.replace(/<\/head>/i,
   '#modalContent .btn-primary,#modalContent .btn-secondary{box-sizing:border-box}'+
   '</style></head>');
 
+
+/* Dirty guard correctness: compare current values to baseline, not whether
+   an input/change event ever fired. Dynamic controls get stable identity. */
+replaceRequired(
+  "function _modalInputChanged(){ _modalDirty=true; }",
+  "function _modalInputChanged(){ _modalDirty=_checkModalDirty() || !!_participantPhotoChanged; }",
+  'dirty guard actual value comparison'
+);
+replaceRequired(
+  "  if(!_modalDirtyIgnore&&(_modalDirty||_checkModalDirty())){",
+  "  if(!_modalDirtyIgnore&&(_checkModalDirty() || !!_participantPhotoChanged)){",
+  'close modal only on actual unsaved changes'
+);
+// Don't let an old listener timer snapshot a newer modal, or overwrite edits.
+replaceRequired(
+  "  setTimeout(function(){\\n    var mc=document.getElementById('modalContent'); if(!mc) return;",
+  "  var expectedHtml=document.getElementById('modalContent')?.firstElementChild;\\n  setTimeout(function(){\\n    var mc=document.getElementById('modalContent'); if(!mc||mc.firstElementChild!==expectedHtml) return;",
+  'dirty listener timer modal identity'
+);
+// A successful form save should clear the old baseline before close.
+replaceRequired(
+  "function _closeModalClean(){\\n  _modalDirty=false; _modalDirtySnap=null; _modalDirtyIgnore=true;",
+  "function _closeModalClean(){\\n  _modalDirty=false; _modalDirtySnap=null; _participantPhotoChanged=false; _modalDirtyIgnore=true;",
+  'clean close resets photo dirty state'
+);
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
