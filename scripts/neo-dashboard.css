@@ -132,3 +132,28 @@ html[data-theme="dark"] .wz-neo-extras[open]>summary{border-bottom-color:#4a3769
 [data-theme="dark"] .card .form-label,[data-theme="dark"] .modal .form-label{color:#e5d9f8}
 [data-theme="dark"] .modal .btn-primary,[data-theme="dark"] .modal .btn-success{color:#150921}
 [data-theme="dark"] .card [style*="color:var(--text3)"]{color:#b8a5d5!important}
+
+/* Theme-consistent dashboard surfaces and user-selected accent. */
+:root{--wz-accent:var(--accent,#8247df);--wz-accent2:var(--accent2,#5828a0)}
+.wz-neo-banner{background:radial-gradient(circle at 85% 5%,color-mix(in srgb,var(--wz-accent) 64%,transparent),transparent 44%),linear-gradient(125deg,#160c30,var(--wz-accent2))!important}
+.wz-neo-stat-icon,.wz-neo-track div{background:linear-gradient(130deg,var(--wz-accent),var(--wz-accent2))!important}
+.wz-neo-panel-head>strong,.wz-neo-muted,.wz-neo-overview button b{color:var(--wz-accent)!important}
+.wz-neo-action:focus-visible,.wz-neo-overview button:focus-visible{outline:3px solid var(--wz-accent);outline-offset:2px}
+html[data-theme="light"] .wz-neo{color:#241535}
+html[data-theme="light"] .wz-neo-panel,html[data-theme="light"] .wz-neo-action,html[data-theme="light"] .wz-neo-overview button,html[data-theme="light"] .wz-neo-tools button{background:#fff!important;color:#241535!important;border-color:#d9cce9!important}
+html[data-theme="light"] .wz-neo-panel-head h2{color:#241535!important}
+html[data-theme="light"] .wz-neo-stat strong{color:#241535!important}
+html[data-theme="light"] .wz-neo-stat span{color:#554668!important}
+html[data-theme="light"] .wz-neo-progress-info{color:#554668!important}
+html[data-theme="dark"] .wz-neo-panel,html[data-theme="dark"] .wz-neo-action,html[data-theme="dark"] .wz-neo-overview button,html[data-theme="dark"] .wz-neo-tools button{background:#241634!important;color:#f7efff!important;border-color:#4f356e!important}
+html[data-theme="dark"] .wz-neo-stat{background:#2b1b40!important;border:1px solid #4c3366!important}
+html[data-theme="dark"] .wz-neo-stat strong,html[data-theme="dark"] .wz-neo-stat span{color:#f4eaff!important}
+html[data-theme="dark"] .wz-neo-panel-head h2{color:#f4eaff!important}
+html[data-theme="dark"] .wz-neo-action-icon{background:#39204f!important;color:#f4eaff!important}
+html[data-theme="dark"] .wz-neo-overview button b{color:var(--wz-accent)!important}
+html[data-theme="dark"] .wz-neo-track{background:#4c365f}
+html[data-theme="dark"] .wz-neo-progress-info{color:#d8c7e8!important}
+/* Print size options must never split their short labels vertically. */
+#modalOverlay button[onclick*="setPrintSizePersonalize"]{flex:1 1 0!important;min-width:0!important;white-space:normal!important;word-break:normal!important;overflow-wrap:normal!important;line-height:1.25!important;padding:12px 6px!important;font-size:.85rem!important;text-align:center!important}
+#modalOverlay button[onclick*="setPrintSizePersonalize"]>div{font-size:.63rem!important;line-height:1.3!important;white-space:normal!important;word-break:normal!important;overflow-wrap:normal!important;margin-top:5px!important}
+#modalOverlay button[onclick*="setPrintSizePersonalize"]{display:block!important}
