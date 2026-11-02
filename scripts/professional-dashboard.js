@@ -16,7 +16,7 @@ const paths={
  pin:'<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
  check:'<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
- settings:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12m9.9 9.9 2.12 2.12M2 12h3m14 0h3M4.93 19.07l2.12-2.12m9.9-9.9 2.12-2.12"/>',
+ settings:'<path d="M12 2.5 14 4l2.4-.4 1.1 2.3 2.4 1 .1 2.6 1.5 2-1.5 2-.1 2.6-2.4 1-1.1 2.3-2.4-.4-2 1.5-2-1.5-2.4.4-1.1-2.3-2.4-1-.1-2.6-1.5-2 1.5-2 .1-2.6 2.4-1 1.1-2.3L10 4Z"/><circle cx="12" cy="12" r="3.3"/>',
  refresh:'<path d="M20 11a8 8 0 0 0-14-5L3 9m0-6v6h6M4 13a8 8 0 0 0 14 5l3-3m0 6v-6h-6"/>',
  star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.9-6.2-3.3-6.2 3.3 1.2-6.9-5-4.9 6.9-1Z"/>',
  medal:'<circle cx="12" cy="15" r="5"/><path d="m8 11-3-8h5l2 7 2-7h5l-3 8"/>'
@@ -39,7 +39,7 @@ window.renderDashboard=function(){
  <button type="button" onclick="navigate('points')"><span>${ico("teams")}</span> Group Results &amp; Points <b>›</b></button>
  <button type="button" onclick="navigate('reports')"><span>${ico("medal")}</span> Reports &amp; Certificates <b>›</b></button>
  </div></div>
- <div class="wz-neo-tools-section"><div class="wz-neo-panel-head"><h2>Tools &amp; Maintenance</h2></div><div class="wz-neo-tools"><button type="button" onclick="navigate('reports')">${ico("backup")}<span>Backup &amp; Export</span></button><button type="button" onclick="navigate('setup')">${ico("settings")}<span>Settings</span></button><button type="button" onclick="if(typeof window._doCheckUpdate==='function')window._doCheckUpdate();else alert('Update checker is available in the Android app')">${ico("refresh")}<span>Check Updates</span></button></div></div></details>
+ <div class="wz-neo-tools-section"><div class="wz-neo-panel-head"><h2>Tools &amp; Maintenance</h2></div><div class="wz-neo-tools"><button type="button" onclick="showSetupFolder('data')">${ico("backup")}<span>Backup &amp; Import</span></button><button type="button" onclick="navigate('setup')">${ico("settings")}<span>Settings</span></button><button type="button" onclick="if(typeof window._doCheckUpdate==='function')window._doCheckUpdate();else alert('Update checker is available in the Android app')">${ico("refresh")}<span>Check Updates</span></button></div></div></details>
  </section>`;
 };
 })();
