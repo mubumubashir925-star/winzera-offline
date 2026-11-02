@@ -22,7 +22,7 @@ const paths={
  medal:'<circle cx="12" cy="15" r="5"/><path d="m8 11-3-8h5l2 7 2-7h5l-3 8"/>'
 };
 const ico=name=>'<svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+(paths[name]||paths.star)+'</svg>';
-const icons=Object.fromEntries(['teams','sections','participants','items','assign','marks','results','points','backup'].map(k=>[k,ico(k)]));
+const icons=Object.fromEntries(['teams','sections','participants','items','assign','marks','reports','results','points','backup'].map(k=>[k,ico(k)]));
 window.renderDashboard=function(){
  const cfg=DB.config(),teams=DB.teams(),people=DB.participants(),items=DB.items();
  const done=items.filter(i=>i.declared).length,remaining=items.length-done,pct=items.length?Math.round(done/items.length*100):0;
