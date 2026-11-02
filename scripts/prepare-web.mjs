@@ -388,6 +388,29 @@ h=h.replace("'<div style=\"display:flex;gap:8px;margin-bottom:6px\">'","'<div cl
 h=h.replace("'<div style=\"flex:1\">'+_wzDropdown('posterActiveSelect'","'<div style=\"flex:1 1 0;min-width:0\">'+_wzDropdown('posterActiveSelect'");
 
 
+
+/* Native WebView print preview: no external browser, safe-area toolbar and Android Back. */
+const printStart=h.indexOf('function openPrint(html){');
+const printEnd=h.indexOf('function printReport(type){',printStart);
+if(printStart<0||printEnd<0)throw Error('Print renderer anchor not found');
+let printSource=h.slice(printStart,printEnd);
+const oldOpen="var win=window.open('','_blank');";
+printSource=printSource.replace(oldOpen,"var win=window.Capacitor?.isNativePlatform?.()?null:window.open('','_blank');");
+printSource=printSource.replace("ov.style.cssText='position:fixed;inset:0;z-index:9999;overflow:auto;background:#d8d5e4;font-family:\"Segoe UI\",Arial,sans-serif;color:#111;font-size:12px';",
+"ov.style.cssText='position:fixed;inset:0;z-index:99999;overflow:auto;background:#e9e7ef;font-family:Arial,sans-serif;color:#111;font-size:12px;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)';");
+printSource=printSource.replace("var st=document.createElement('style'); st.textContent=css;",
+"var st=document.createElement('style'); st.textContent=css+' .ptbar{position:sticky!important;top:0!important;z-index:3;display:flex!important;flex-wrap:wrap!important;gap:8px!important;min-height:60px!important;padding:10px 12px!important;align-items:center!important}.ptbar-lbl{flex:1 1 140px;min-width:0}.ptbtn{min-height:42px!important;white-space:nowrap!important}.pgwrap{padding:14px 8px 90px!important;overflow-x:auto!important}.pgcard{box-sizing:border-box!important;width:210mm!important;max-width:none!important;margin:0 auto!important;box-shadow:0 4px 24px #0002!important} @media print{#print-overlay{position:static!important;overflow:visible!important;padding:0!important}.pgwrap{padding:0!important;overflow:visible!important}.pgcard{width:auto!important;box-shadow:none!important}.ptbar{display:none!important}}';");
+printSource=printSource.replace("document.getElementById('ov-cl').onclick=function(){ ov.remove(); };",
+"window._wzClosePrintPreview=function(){ov.remove();window._wzClosePrintPreview=null;};document.getElementById('ov-cl').onclick=window._wzClosePrintPreview;");
+printSource=printSource.replace("ov.style.display='none'; window.print(); setTimeout(function(){ ov.style.display=''; },400);",
+"window.print();");
+h=h.slice(0,printStart)+printSource+h.slice(printEnd);
+const backStart=h.indexOf('function goBack(');
+if(backStart<0)throw Error('Back navigation anchor missing');
+h=h.slice(0,backStart)+h.slice(backStart).replace('function goBack(', 'function goBack('); 
+const backOpen=h.indexOf('{',backStart);
+h=h.slice(0,backOpen+1)+" if(window._wzClosePrintPreview){window._wzClosePrintPreview();return;} "+h.slice(backOpen+1);
+
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
