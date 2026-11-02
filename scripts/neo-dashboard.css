@@ -164,3 +164,13 @@ html[data-theme="dark"] .wz-neo-progress-info{color:#d8c7e8!important}
 #app>.header #pageSubtitle{color:#f1e6ff!important;opacity:1!important;text-shadow:0 1px 2px #17072b60!important}
 html[data-theme="light"] #app>.header #pageTitle,html[data-theme="dark"] #app>.header #pageTitle{color:#fff!important}
 html[data-theme="light"] #app>.header #pageSubtitle,html[data-theme="dark"] #app>.header #pageSubtitle{color:#f1e6ff!important}
+
+/* Mobile readability: champion surfaces and wide result tables. */
+html[data-theme="light"] .champion-card,html[data-theme="light"] [class*="champion-banner"]{color:#251436!important}
+html[data-theme="light"] .champion-card [style*="color:#fff"],html[data-theme="light"] [class*="champion-banner"] [style*="color:#fff"]{color:#251436!important}
+html[data-theme="light"] .champion-card [style*="opacity"],html[data-theme="light"] [class*="champion-banner"] [style*="opacity"]{opacity:1!important}
+@media(max-width:700px){
+ #app .table-wrap,#app .table-responsive,#app [class*="table-scroll"]{max-width:100%;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+ #app table{max-width:none}
+ #app .card{max-width:100%;min-width:0}
+}
