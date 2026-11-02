@@ -116,3 +116,19 @@ html[data-theme="dark"] .wz-neo-extras[open]>summary{border-bottom-color:#4a3769
 .wz-neo-settings-link{display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border:1px solid #ffffff65;background:#ffffff1c;color:#fff;border-radius:10px;font:inherit;font-size:.68rem;font-weight:800;letter-spacing:0;cursor:pointer}
 .wz-neo-settings-link svg{width:16px;height:16px}
 .wz-neo-settings-link:active{background:#ffffff35}
+
+/* Accessible light/dark contrast for cards, settings and developer/support screen. */
+[data-theme="light"]{--text:#211434;--text2:#57426c;--text3:#69577e;--border:#cdbce3}
+[data-theme="light"] .card,[data-theme="light"] .modal,[data-theme="light"] .form-group,[data-theme="light"] .settings-card{color:var(--text)}
+[data-theme="light"] .card [style*="color:var(--text2)"],[data-theme="light"] .card [style*="color:var(--text3)"]{color:#57426c!important}
+[data-theme="light"] .card [style*="color:#fff"],[data-theme="light"] .card [style*="color:white"]{color:#28183d!important}
+[data-theme="light"] .card .card-title,[data-theme="light"] .card .form-label{color:#2c1a42}
+[data-theme="light"] .modal .form-label,[data-theme="light"] .modal .card-title{color:var(--text)}
+[data-theme="light"] .modal .btn-secondary{color:#38244d;border-color:#c6b4df}
+[data-theme="light"] .modal .btn-primary,[data-theme="light"] .modal .btn-success{color:#160c25}
+[data-theme="light"] .card[style*="background:linear-gradient"],[data-theme="light"] .card[style*="background: radial-gradient"]{color:#231238}
+[data-theme="light"] .wz-neo-banner,[data-theme="light"] .wz-neo-banner *{color:#fff}
+[data-theme="dark"] .card,[data-theme="dark"] .modal{color:var(--text)}
+[data-theme="dark"] .card .form-label,[data-theme="dark"] .modal .form-label{color:#e5d9f8}
+[data-theme="dark"] .modal .btn-primary,[data-theme="dark"] .modal .btn-success{color:#150921}
+[data-theme="dark"] .card [style*="color:var(--text3)"]{color:#b8a5d5!important}
