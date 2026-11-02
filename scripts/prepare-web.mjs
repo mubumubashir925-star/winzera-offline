@@ -388,24 +388,6 @@ h=h.replace("'<div style=\"display:flex;gap:8px;margin-bottom:6px\">'","'<div cl
 h=h.replace("'<div style=\"flex:1\">'+_wzDropdown('posterActiveSelect'","'<div style=\"flex:1 1 0;min-width:0\">'+_wzDropdown('posterActiveSelect'");
 
 
-/* Public Podium SHARE IMAGE (not the separate public broadcast CSS):
-   include every tied winner, and visually emphasize first place. */
-const podiumStart=h.indexOf('function _genPublicPoster(');
-const podiumEnd=h.indexOf('function roundRectPath(',podiumStart);
-if(podiumStart<0||podiumEnd<0)throw Error('Public podium renderer missing');
-let podium=h.slice(podiumStart,podiumEnd);
-const podiumChanges=[
- ["top.filter(function(m) { return m._rank <= 3; }).slice(0, 3)","top.filter(function(m) { return m._rank >= 1 && m._rank <= 3; })"],
- ["var H_PODIUM = top3.length * ROW_H + 20;","var H_PODIUM = top3.reduce(function(sum,m){return sum+Math.round(ROW_H*(m._rank===1?1.65:m._rank===2?1.18:1.05));},20);"],
- ["var ry = rowY + i * ROW_H;","var ry = rowY + top3.slice(0,i).reduce(function(sum,r){return sum+Math.round(ROW_H*(r._rank===1?1.65:r._rank===2?1.18:1.05));},0);"],
- ["var rowScale = ROW_H / 82;","var rowScale = (ROW_H / 82) * (m._rank===1?1.65:m._rank===2?1.18:1.05);"],
- ["var PHOTO_R = 24 * L.photoScale * rowScale;","var PHOTO_R = 28 * L.photoScale * rowScale;"],
- ["ctx.font = PF(15,800);","ctx.font = PF(m._rank===1?23:m._rank===2?17:15,800);"],
- ["ctx.font = PF(11,700);\n        ctx.fillStyle = L.textColor","ctx.font = PF(m._rank===1?15:12,700);\n        ctx.fillStyle = L.textColor"]
-];
-for(const [from,to] of podiumChanges){if(!podium.includes(from))throw Error('Podium edit anchor missing: '+from);podium=podium.replace(from,to);}
-h=h.slice(0,podiumStart)+podium+h.slice(podiumEnd);
-
 const extracted=[];
 let inlineIndex=0;
 h=h.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi,(whole,attrs,js)=>{
