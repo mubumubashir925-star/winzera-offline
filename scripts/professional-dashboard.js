@@ -7,6 +7,7 @@ const paths={
  sections:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10M9 15h12"/>',
  items:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M9 7h6M9 11h6"/>',
  assign:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M8 15l2 2 5-5"/>',
+ reports:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',
  marks:'<rect x="5" y="3" width="14" height="19" rx="2"/><path d="M9 3.5h6M9 12l2 2 4-4M9 18h6"/>',
  results:'<path d="M8 21h8M12 17v4M7 4h10v7a5 5 0 0 1-10 0V4ZM7 6H3v2a4 4 0 0 0 4 4M17 6h4v2a4 4 0 0 1-4 4"/>',
  points:'<path d="M4 20V11M10 20V5M16 20v-8M22 20V8"/><path d="M2 20h22"/>',
@@ -25,7 +26,7 @@ const icons=Object.fromEntries(['teams','sections','participants','items','assig
 window.renderDashboard=function(){
  const cfg=DB.config(),teams=DB.teams(),people=DB.participants(),items=DB.items();
  const done=items.filter(i=>i.declared).length,remaining=items.length-done,pct=items.length?Math.round(done/items.length*100):0;
- const shortcuts=[['teams','Teams','teams'],['sections','Sections','sections'],['participants','Participants','participants'],['items','Items','items'],['assign','Assign Items','assignChooser'],['marks','Mark Entry','marks'],['results','Results','results'],['points','Points','points']];
+ const shortcuts=[['teams','Teams','teams'],['sections','Sections','sections'],['participants','Participants','participants'],['items','Items','items'],['assign','Assign Items','assignChooser'],['reports','Reports','reports'],['results','Results','results'],['points','Points','points']];
  const stats=[[ico('teams'),teams.length,'Teams','violet'],[ico('participants'),people.length,'Participants','sky'],[ico('items'),items.length,'Items','peach'],[ico('medal'),done,'Completed','mint']];
  return `<section class="wz-neo">
  <div class="wz-neo-banner"><div class="wz-neo-spark"><span>✦ EVENT DASHBOARD</span><button type="button" class="wz-neo-settings-link" onclick="navigate('setup')" aria-label="Open settings">${ico("settings")}<span>Settings</span></button></div><div class="wz-neo-banner-body"><div><h1>${esc(cfg.festName||'Winzera Fest')}</h1><p>${esc(cfg.institution||'Competition Management')}</p></div><div class="wz-neo-trophy" aria-hidden="true">${ico("results")}</div></div><div class="wz-neo-banner-footer"><span>${ico("calendar")} ${esc(typeof formatFestDate==='function'?(formatFestDate(cfg)||'Event details'):'Event details')}</span><span>${ico("pin")} ${esc(cfg.venue||'Event Venue')}</span></div></div>
